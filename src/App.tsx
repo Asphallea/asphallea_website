@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { Background3D } from './components/Background3D';
 import { ComparisonStrip } from './components/ComparisonStrip';
 import { FeaturesSection } from './components/FeaturesSection';
 import { Footer } from './components/Footer';
@@ -15,6 +16,7 @@ import { ProblemBand } from './components/ProblemBand';
 export default function App() {
   return (
     <>
+      <Background3D />
       <div className="watermark">A</div>
       <Navbar />
       <main className="flex-grow pt-32 pb-24 px-margin max-w-container-max mx-auto w-full relative z-10 flex flex-col gap-32">
