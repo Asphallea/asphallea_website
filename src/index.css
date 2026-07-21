@@ -73,6 +73,10 @@
 
   .font-headline-xl, .font-headline-lg, .font-headline-md, .font-body-lg, .font-body-md { font-family: 'Inter', sans-serif; }
   .font-label-sm, .font-mono-eyebrow, .font-mono-code { font-family: 'JetBrains Mono', monospace; }
+
+  .shadow-bronze {
+    box-shadow: 0 0 40px -10px rgba(184, 115, 51, 0.4);
+  }
 }
 
 @layer base {

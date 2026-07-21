@@ -1,7 +1,15 @@
+import { motion } from 'motion/react';
+
 export function IntegrationSection() {
   return (
-    <section className="flex flex-col gap-8">
-      <div className="flex flex-col gap-2">
+    <motion.section
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.5 }}
+      className="flex flex-col gap-8 max-w-6xl mx-auto w-full"
+    >
+      <div className="flex flex-col gap-2 text-center lg:text-left">
         <div className="font-mono-eyebrow text-mono-eyebrow bronze-text tracking-widest uppercase">
           FIVE-LINE INTEGRATION
         </div>
@@ -10,7 +18,11 @@ export function IntegrationSection() {
         </h2>
       </div>
 
-      <div className="code-window rounded-lg overflow-hidden shadow-2xl">
+      <motion.div 
+        className="code-window rounded-lg overflow-hidden shadow-2xl transition-all duration-300 hover:shadow-bronze"
+        whileHover={{ scale: 1.01 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      >
         <div className="bg-surface-container-high px-4 py-2 border-b border-white/5 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant">
@@ -51,7 +63,7 @@ export function IntegrationSection() {
           <br />
           {'    '}result = execute_task(prompt, tools=secure_env.tools)
         </div>
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 }
