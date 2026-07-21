@@ -1,0 +1,6 @@
+{
+  "name": "Asphallea",
+  "description": "A landing page for Asphallea, a runtime security tool for AI agents.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
