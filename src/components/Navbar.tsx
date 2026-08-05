@@ -1,6 +1,7 @@
-import { Star, Menu, X, Shield } from 'lucide-react';
+import { Star, Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import logoImg from '../assets/asphallea-logo.jpeg';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,10 +28,17 @@ export function Navbar() {
   return (
     <nav className="fixed top-0 left-0 w-full z-50 glass-panel border-b border-white/5">
       <div className="flex justify-between items-center px-6 h-16 max-w-6xl mx-auto w-full">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded bg-surface-container-high border border-primary/30 flex items-center justify-center text-primary shadow-sm">
-            <Shield className="w-5 h-5 text-primary" />
-          </div>
+        <div className="flex items-center gap-4">
+          <img
+            src={logoImg}
+            alt="Asphallea Logo"
+            className="w-8 h-8 rounded object-cover border border-white/10"
+            onError={(e) => {
+              // Fallback to original online URL if local asset has loading issues
+              (e.currentTarget as HTMLImageElement).src =
+                'https://lh3.googleusercontent.com/aida-public/AB6AXuD-7Tx0WsMNc2_ouhCUfT_QwSQcBPn488UJTJY0s-j-zCLT445BO7mo2jqZ4BD-IbF2-ehFONqexAW1UMFXWgkkvUl9_xBR3a3iVVEekUs-irkHgpl1-VpvR05otT24gfoee_KM4GzX5PrzD5IcuiMVsSPA8viv8XYoRHmU4CcxG2T0bzXNYeMUnj6owuWfok8I8Tfi1cQaNSQp3FI2GNgoUNXN-ykM8IkTUkAjNJrmTeOVqR4GFf-blXHW9i6IzJ9ssg';
+            }}
+          />
           <span className="font-headline-md text-headline-md font-bold tracking-tighter text-on-background">
             ASPHALLEA
           </span>

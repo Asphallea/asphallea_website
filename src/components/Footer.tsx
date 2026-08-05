@@ -1,12 +1,18 @@
-import { Shield } from 'lucide-react';
+import logoImg from '../assets/asphallea-logo.jpeg';
 
 export function Footer() {
   return (
     <footer className="w-full py-margin px-margin border-t border-outline-variant/20 flex flex-col md:flex-row justify-between items-center gap-gutter bg-surface z-10 mt-auto">
       <div className="flex items-center gap-3">
-        <div className="w-6 h-6 rounded bg-surface-container-high border border-white/10 flex items-center justify-center text-primary">
-          <Shield className="w-3.5 h-3.5" />
-        </div>
+        <img
+          src={logoImg}
+          alt="Asphallea Logo"
+          className="w-6 h-6 rounded object-cover border border-white/10"
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).src =
+              'https://lh3.googleusercontent.com/aida-public/AB6AXuAG15-R8UDezNSm32oiScBDCAebIQMl743duNvIWAz5h5XHRpbQbMGAti344dnj0eTCK9HTKCzeeBtKTezvL1bTnwLifDPp8kOh5fRe60bsUBd4QRVFFJD2jCYWZfZyO3i54Up2XmhzmDlpbnwBHZ92GVwV9soN1sjTHTZawt99pJRx2X1CMv6jNol1kkp-pBXne08qSpdqc1f3EoOt8CkYhYw1OdDGCufdJC4727TAcx2gslzWUaWkl5ZxrYZKb2-vkg';
+          }}
+        />
         <span className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant font-bold tracking-wider">
           ASPHALLEA
         </span>
