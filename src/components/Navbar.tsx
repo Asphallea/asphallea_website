@@ -5,7 +5,7 @@ import logoImg from '../assets/asphallea-logo.jpeg';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [starCount, setStarCount] = useState<string>('1.2k');
+  const [starCount, setStarCount] = useState<string>('1');
 
   useEffect(() => {
     fetch('https://api.github.com/repos/Asphallea/Asphallea')
@@ -21,7 +21,7 @@ export function Navbar() {
         }
       })
       .catch(() => {
-        // Fallback to default if rate limited
+        // Fallback to default actual count if rate limited
       });
   }, []);
 
