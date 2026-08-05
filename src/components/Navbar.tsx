@@ -23,34 +23,48 @@ export function Navbar() {
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6">
           <a
             className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant hover:text-primary transition-colors"
-            href="#"
+            href="#quickstart"
+          >
+            Quickstart
+          </a>
+          <a
+            className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant hover:text-primary transition-colors"
+            href="#sandbox-simulator"
+          >
+            Simulator
+          </a>
+          <a
+            className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant hover:text-primary transition-colors"
+            href="#policy-builder"
+          >
+            Builder
+          </a>
+          <a
+            className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant hover:text-primary transition-colors"
+            href="#containment"
+          >
+            OS Matrix
+          </a>
+          <a
+            className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant hover:text-primary transition-colors"
+            href="#docs"
           >
             Docs
           </a>
           <a
             className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant hover:text-primary transition-colors"
-            href="#"
+            href="#enterprise"
           >
-            Security
-          </a>
-          <a
-            className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant hover:text-primary transition-colors"
-            href="#"
-          >
-            Manifesto
-          </a>
-          <a
-            className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant hover:text-primary transition-colors"
-            href="#"
-          >
-            Changelog
+            Enterprise
           </a>
           <a
             className="flex items-center gap-2 px-3 py-1.5 rounded-DEFAULT btn-primary font-mono-eyebrow text-mono-eyebrow transition-all hover:scale-95"
-            href="#"
+            href="https://github.com/Asphallea/Asphallea"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <Star className="w-4 h-4 fill-current" />
             Star on GitHub
@@ -81,31 +95,51 @@ export function Navbar() {
             <div className="flex flex-col px-6 py-4 gap-4">
               <a
                 className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant hover:text-primary transition-colors"
-                href="#"
+                href="#quickstart"
+                onClick={() => setIsOpen(false)}
+              >
+                Quickstart
+              </a>
+              <a
+                className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant hover:text-primary transition-colors"
+                href="#sandbox-simulator"
+                onClick={() => setIsOpen(false)}
+              >
+                Simulator
+              </a>
+              <a
+                className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant hover:text-primary transition-colors"
+                href="#policy-builder"
+                onClick={() => setIsOpen(false)}
+              >
+                Builder
+              </a>
+              <a
+                className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant hover:text-primary transition-colors"
+                href="#containment"
+                onClick={() => setIsOpen(false)}
+              >
+                OS Matrix
+              </a>
+              <a
+                className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant hover:text-primary transition-colors"
+                href="#docs"
+                onClick={() => setIsOpen(false)}
               >
                 Docs
               </a>
               <a
                 className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant hover:text-primary transition-colors"
-                href="#"
+                href="#enterprise"
+                onClick={() => setIsOpen(false)}
               >
-                Security
-              </a>
-              <a
-                className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant hover:text-primary transition-colors"
-                href="#"
-              >
-                Manifesto
-              </a>
-              <a
-                className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant hover:text-primary transition-colors"
-                href="#"
-              >
-                Changelog
+                Enterprise
               </a>
               <a
                 className="flex items-center justify-center gap-2 px-3 py-3 rounded-DEFAULT btn-primary font-mono-eyebrow text-mono-eyebrow transition-all w-full mt-2"
-                href="#"
+                href="https://github.com/Asphallea/Asphallea"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <Star className="w-4 h-4 fill-current" />
                 Star on GitHub

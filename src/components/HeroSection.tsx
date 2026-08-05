@@ -1,7 +1,17 @@
-import { Copy, Star } from 'lucide-react';
+import { Copy, Check, Star } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useState } from 'react';
 
 export function HeroSection() {
+  const [copied, setCopied] = useState(false);
+  const installCmd = 'pip install git+https://github.com/Asphallea/Asphallea.git';
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(installCmd);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center max-w-6xl mx-auto w-full">
       {/* Left Column: Copy */}
@@ -22,30 +32,37 @@ export function HeroSection() {
           which actions are allowed — by policy, not by watching text. It
           secures what agents do, not what they say.
         </p>
-        <div className="flex items-center gap-4 mt-2 w-full max-w-md">
-          <div className="flex items-center justify-between w-full code-window rounded-DEFAULT px-4 py-3 input-focus-bronze transition-colors text-left">
-            <code className="font-mono-code text-mono-code text-on-surface">
-              pip install asphallea
+        <div className="flex items-center gap-4 mt-2 w-full max-w-lg">
+          <div className="flex items-center justify-between w-full code-window rounded-DEFAULT px-4 py-3 input-focus-bronze transition-colors text-left overflow-hidden">
+            <code className="font-mono-code text-mono-code text-on-surface truncate mr-2" title={installCmd}>
+              {installCmd}
             </code>
             <button
+              onClick={handleCopy}
               className="text-on-surface-variant hover:text-primary transition-colors flex-shrink-0"
-              title="Copy"
+              title="Copy install command"
             >
-              <Copy className="w-5 h-5" />
+              {copied ? (
+                <Check className="w-5 h-5 text-primary" />
+              ) : (
+                <Copy className="w-5 h-5" />
+              )}
             </button>
           </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-4 mt-4 w-full sm:w-auto">
           <a
             className="px-6 py-3 rounded-DEFAULT btn-primary font-mono-eyebrow text-mono-eyebrow font-bold transition-all hover:scale-95 flex items-center justify-center gap-2"
-            href="#"
+            href="https://github.com/Asphallea/Asphallea"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <Star className="w-4 h-4 fill-current" />
             Star on GitHub
           </a>
           <a
             className="px-6 py-3 rounded-DEFAULT btn-ghost font-mono-eyebrow text-mono-eyebrow transition-all hover:bg-white/5 flex justify-center text-center"
-            href="#"
+            href="#quickstart"
           >
             Read the Quickstart
           </a>

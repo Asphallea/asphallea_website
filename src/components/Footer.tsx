@@ -14,13 +14,17 @@ export function Footer() {
       <div className="flex items-center gap-6">
         <a
           className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant hover:text-primary-fixed-dim transition-colors hover:underline decoration-primary/30"
-          href="#"
+          href="https://github.com/Asphallea/Asphallea"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           GitHub
         </a>
         <a
           className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant hover:text-primary-fixed-dim transition-colors hover:underline decoration-primary/30"
-          href="#"
+          href="https://github.com/Asphallea/Asphallea"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           Docs
         </a>
