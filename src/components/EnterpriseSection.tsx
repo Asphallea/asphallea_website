@@ -6,11 +6,36 @@ export function EnterpriseSection() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      setSubmitted(true);
+    if (!email) return;
+
+    // 1. Save to local storage for persistence
+    try {
+      const existing = JSON.parse(localStorage.getItem('asphallea_waitlist_emails') || '[]');
+      if (!existing.includes(email)) {
+        existing.push({ email, date: new Date().toISOString() });
+        localStorage.setItem('asphallea_waitlist_emails', JSON.stringify(existing));
+      }
+    } catch {
+      // Ignore storage error
     }
+
+    // 2. Optional Formspree / Webhook API dispatch if configured
+    const apiUrl = import.meta.env?.VITE_WAITLIST_API;
+    if (apiUrl) {
+      try {
+        await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+      } catch {
+        // Fallback gracefully
+      }
+    }
+
+    setSubmitted(true);
   };
 
   return (
@@ -122,7 +147,7 @@ export function EnterpriseSection() {
           <div className="flex items-center gap-3">
             <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></div>
             <h3 className="font-headline-md text-base text-on-background font-semibold">
-              Enterprise Dashboard Preview — Fleet Telemetry
+              Enterprise Dashboard Preview: Fleet Telemetry
             </h3>
           </div>
           <span className="text-xs font-mono-code text-primary bg-primary/10 border border-primary/20 px-3 py-1 rounded-full">

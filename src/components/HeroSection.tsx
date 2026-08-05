@@ -29,7 +29,7 @@ export function HeroSection() {
         </h1>
         <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
           Asphallea sandboxes agent and MCP tool-calls at runtime and enforces
-          which actions are allowed — by policy, not by watching text. It
+          which actions are allowed by policy, not by watching text. It
           secures what agents do, not what they say.
         </p>
         <div className="flex items-center gap-4 mt-2 w-full max-w-lg">

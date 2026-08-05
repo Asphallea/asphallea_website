@@ -1,22 +1,36 @@
-import { Star, Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { Star, Menu, X, Shield } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [starCount, setStarCount] = useState<string>('1.2k');
+
+  useEffect(() => {
+    fetch('https://api.github.com/repos/Asphallea/Asphallea')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && typeof data.stargazers_count === 'number') {
+          const count = data.stargazers_count;
+          if (count >= 1000) {
+            setStarCount((count / 1000).toFixed(1) + 'k');
+          } else {
+            setStarCount(count.toString());
+          }
+        }
+      })
+      .catch(() => {
+        // Fallback to default if rate limited
+      });
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 glass-panel border-b border-white/5">
       <div className="flex justify-between items-center px-6 h-16 max-w-6xl mx-auto w-full">
-        <div className="flex items-center gap-4">
-          <div
-            className="w-8 h-8 rounded bg-cover bg-center"
-            data-alt="A striking digital installation art piece featuring glowing, generative geometric shapes suspended in a vast, minimalist gallery space. The room is illuminated by high-key, soft white lighting that creates a bright, modern light-mode aesthetic. The artwork relies on a sophisticated palette of deep blacks and pristine whites, punctuated by intense accents of vibrant red. The mood is serene yet technologically advanced."
-            style={{
-              backgroundImage:
-                "url('https://lh3.googleusercontent.com/aida-public/AB6AXuD-7Tx0WsMNc2_ouhCUfT_QwSQcBPn488UJTJY0s-j-zCLT445BO7mo2jqZ4BD-IbF2-ehFONqexAW1UMFXWgkkvUl9_xBR3a3iVVEekUs-irkHgpl1-VpvR05otT24gfoee_KM4GzX5PrzD5IcuiMVsSPA8viv8XYoRHmU4CcxG2T0bzXNYeMUnj6owuWfok8I8Tfi1cQaNSQp3FI2GNgoUNXN-ykM8IkTUkAjNJrmTeOVqR4GFf-blXHW9i6IzJ9ssg')",
-            }}
-          ></div>
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded bg-surface-container-high border border-primary/30 flex items-center justify-center text-primary shadow-sm">
+            <Shield className="w-5 h-5 text-primary" />
+          </div>
           <span className="font-headline-md text-headline-md font-bold tracking-tighter text-on-background">
             ASPHALLEA
           </span>
@@ -69,7 +83,7 @@ export function Navbar() {
             <Star className="w-4 h-4 fill-current" />
             Star on GitHub
             <span className="opacity-80 ml-1 border-l border-surface/20 pl-2">
-              1.2k
+              {starCount}
             </span>
           </a>
         </div>
@@ -144,7 +158,7 @@ export function Navbar() {
                 <Star className="w-4 h-4 fill-current" />
                 Star on GitHub
                 <span className="opacity-80 ml-1 border-l border-surface/20 pl-2">
-                  1.2k
+                  {starCount}
                 </span>
               </a>
             </div>

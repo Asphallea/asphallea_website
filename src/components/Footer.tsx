@@ -1,15 +1,15 @@
+import { Shield } from 'lucide-react';
+
 export function Footer() {
   return (
     <footer className="w-full py-margin px-margin border-t border-outline-variant/20 flex flex-col md:flex-row justify-between items-center gap-gutter bg-surface z-10 mt-auto">
-      <div className="flex items-center gap-4">
-        <div
-          className="w-6 h-6 rounded bg-cover bg-center opacity-50 grayscale"
-          data-alt="A striking digital installation art piece featuring glowing, generative geometric shapes suspended in a vast, minimalist gallery space. The room is illuminated by high-key, soft white lighting that creates a bright, modern light-mode aesthetic. The artwork relies on a sophisticated palette of deep blacks and pristine whites, punctuated by intense accents of vibrant red. The mood is serene yet technologically advanced."
-          style={{
-            backgroundImage:
-              "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAG15-R8UDezNSm32oiScBDCAebIQMl743duNvIWAz5h5XHRpbQbMGAti344dnj0eTCK9HTKCzeeBtKTezvL1bTnwLifDPp8kOh5fRe60bsUBd4QRVFFJD2jCYWZfZyO3i54Up2XmhzmDlpbnwBHZ92GVwV9soN1sjTHTZawt99pJRx2X1CMv6jNol1kkp-pBXne08qSpdqc1f3EoOt8CkYhYw1OdDGCufdJC4727TAcx2gslzWUaWkl5ZxrYZKb2-vkg')",
-          }}
-        ></div>
+      <div className="flex items-center gap-3">
+        <div className="w-6 h-6 rounded bg-surface-container-high border border-white/10 flex items-center justify-center text-primary">
+          <Shield className="w-3.5 h-3.5" />
+        </div>
+        <span className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant font-bold tracking-wider">
+          ASPHALLEA
+        </span>
       </div>
       <div className="flex items-center gap-6">
         <a

@@ -11,7 +11,7 @@ export function ProblemBand() {
     >
       <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
         AI agents now have real hands: shell, filesystem, network, MCP servers.
-        A single prompt injection is no longer a bad sentence — it's a dropped
+        A single prompt injection is no longer a bad sentence: it is a dropped
         database or a leaked secret. Text-level guardrails never see the action.{' '}
         <span className="text-on-background font-medium">
           Asphallea sits at the execution layer and stops it.
