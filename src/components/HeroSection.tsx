@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export function HeroSection() {
   const [copied, setCopied] = useState(false);
-  const installCmd = 'pip install git+https://github.com/Asphallea/Asphallea.git';
+  const installCmd = 'pip install asphallea';
 
   const handleCopy = () => {
     navigator.clipboard.writeText(installCmd);
@@ -21,8 +21,13 @@ export function HeroSection() {
         transition={{ duration: 0.5 }}
         className="lg:col-span-6 flex flex-col gap-6 items-center text-center lg:items-start lg:text-left"
       >
-        <div className="font-mono-eyebrow text-mono-eyebrow bronze-text tracking-widest uppercase">
-          RUNTIME SECURITY FOR AI AGENTS
+        <div className="flex items-center gap-2">
+          <span className="font-mono-eyebrow text-mono-eyebrow bronze-text tracking-widest uppercase">
+            RUNTIME SECURITY FOR AI AGENTS
+          </span>
+          <span className="text-[11px] font-mono-code bg-white/5 border border-primary/20 text-primary px-2 py-0.5 rounded-full">
+            v0.1.0 on PyPI
+          </span>
         </div>
         <h1 className="font-headline-xl text-headline-xl text-on-background">
           A firewall for what your AI agents do.
@@ -32,7 +37,7 @@ export function HeroSection() {
           which actions are allowed by policy, not by watching text. It
           secures what agents do, not what they say.
         </p>
-        <div className="flex items-center gap-4 mt-2 w-full max-w-lg">
+        <div className="flex flex-col gap-2 w-full max-w-lg">
           <div className="flex items-center justify-between w-full code-window rounded-DEFAULT px-4 py-3 input-focus-bronze transition-colors text-left overflow-hidden">
             <code className="font-mono-code text-mono-code text-on-surface truncate mr-2" title={installCmd}>
               {installCmd}
@@ -49,6 +54,9 @@ export function HeroSection() {
               )}
             </button>
           </div>
+          <span className="text-[11px] font-mono-code text-on-surface-variant/70 px-1">
+            Prebuilt wheels for Linux (glibc/musl), macOS (universal2), and Windows. No Rust toolchain required.
+          </span>
         </div>
         <div className="flex flex-col sm:flex-row gap-4 mt-4 w-full sm:w-auto">
           <a

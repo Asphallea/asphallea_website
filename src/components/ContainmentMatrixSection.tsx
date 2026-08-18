@@ -65,7 +65,7 @@ export function ContainmentMatrixSection() {
           Two tiers. Kernel-level enforcement.
         </h2>
         <p className="font-body-md text-body-md text-on-surface-variant">
-          Pure-ML competitors filter text. Asphallea enforces OS containment using platform-native security engines on Linux, Windows, and macOS.
+          Pure-ML competitors filter text. Asphallea enforces OS containment using platform-native security engines on Linux, Windows, and macOS. Release wheels bundle prebuilt, code-signed, and SHA-256 verified core binaries with zero Rust toolchain setup required.
         </p>
       </motion.div>
 
