@@ -34,34 +34,42 @@ export function IntegrationSection() {
           </span>
         </div>
         <div className="p-6 font-mono-code text-mono-code text-on-surface whitespace-pre-wrap leading-relaxed">
-          <span className="text-[#a08d80]">from</span> asphallea{' '}
-          <span className="text-[#a08d80]">import</span> Sandbox, Policy
+          <span className="text-[#ffb77b]">from</span> asphallea{' '}
+          <span className="text-[#ffb77b]">import</span> Policy
           <br />
-          <span className="text-[#a08d80]">from</span> my_agent{' '}
-          <span className="text-[#a08d80]">import</span> execute_task
+          <span className="text-[#ffb77b]">from</span> asphallea.integrations.mcp{' '}
+          <span className="text-[#ffb77b]">import</span> guard_mcp_session
+          <br />
+          <span className="text-[#ffb77b]">from</span> asphallea.integrations.langchain{' '}
+          <span className="text-[#ffb77b]">import</span> guard_tool
           <br />
           <br />
-          <span className="text-on-surface-variant italic">
-            # 1. Load your security policy
+          <span className="text-on-surface-variant/60">
+            # 1. Declare a least-privilege policy
           </span>
           <br />
-          policy = Policy.from_file(
-          <span className="text-primary-fixed-dim">"policy.yml"</span>)
+          policy = (
+          <br />
+          {'    '}Policy.builder(<span className="text-[#a8edff]">"production-agent"</span>)
+          <br />
+          {'    '}.read_paths(<span className="text-[#a8edff]">"./workspace"</span>)
+          <br />
+          {'    '}.write_paths(<span className="text-[#a8edff]">"./workspace/out"</span>)
+          <br />
+          {'    '}.deny_network()
+          <br />
+          {'    '}.build()
+          <br />
+          )
           <br />
           <br />
-          <span className="text-on-surface-variant italic">
-            # 2. Wrap the execution environment
+          <span className="text-on-surface-variant/60">
+            # 2. Wrap MCP sessions or LangChain tools in one line
           </span>
           <br />
-          <span className="text-[#a08d80]">with</span> Sandbox(policy=policy){' '}
-          <span className="text-[#a08d80]">as</span> secure_env:
+          guarded_session = guard_mcp_session(session, policy, on_deny=<span className="text-[#a8edff]">"error"</span>)
           <br />
-          {'    '}
-          <span className="text-on-surface-variant italic">
-            # Agent runs normally, but tools are intercepted
-          </span>
-          <br />
-          {'    '}result = execute_task(prompt, tools=secure_env.tools)
+          guarded_tool = guard_tool(read_file, policy=policy, reads=<span className="text-[#a8edff]">"path"</span>)
         </div>
       </motion.div>
     </motion.section>
