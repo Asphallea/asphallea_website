@@ -111,10 +111,10 @@ if res_file.exists():
       </motion.div>
 
       {/* Code Editor with Tabs */}
-      <div className="code-window rounded-xl overflow-hidden shadow-2xl flex flex-col border border-white/10 w-full max-w-full min-w-0">
+      <div className="code-window rounded-xl overflow-hidden shadow-2xl flex flex-col border border-white/10">
         {/* Editor Tab Bar */}
         <div className="bg-surface-container-high px-4 py-2.5 border-b border-white/10 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex items-center gap-2">
             <button
               onClick={() => setActiveTab('policy')}
               className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-mono-code transition-all ${
@@ -159,8 +159,8 @@ if res_file.exists():
         </div>
 
         {/* Code Content */}
-        <div className="p-4 sm:p-6 font-mono-code text-xs sm:text-sm bg-[#13171A] overflow-x-auto leading-relaxed text-on-surface whitespace-pre w-full max-w-full min-w-0">
-          <code className="block min-w-0">{activeSnippet}</code>
+        <div className="p-6 font-mono-code text-xs sm:text-sm bg-[#13171A] overflow-x-auto leading-relaxed text-on-surface whitespace-pre">
+          <code>{activeSnippet}</code>
         </div>
 
         {/* Footer Explanation Note */}

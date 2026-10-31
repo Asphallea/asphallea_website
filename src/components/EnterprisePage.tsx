@@ -155,7 +155,7 @@ export function EnterprisePage({ onOpenDemo }: EnterprisePageProps) {
   ];
 
   return (
-    <div className="flex flex-col gap-16 max-w-6xl mx-auto w-full py-6 min-w-0">
+    <div className="flex flex-col gap-16 max-w-6xl mx-auto w-full py-6">
       {/* Hero Header */}
       <div className="flex flex-col gap-4 text-center max-w-3xl mx-auto">
         <div className="flex items-center justify-center gap-2">
@@ -252,7 +252,7 @@ export function EnterprisePage({ onOpenDemo }: EnterprisePageProps) {
       </div>
 
       {/* Feature Availability Matrix */}
-      <div className="flex flex-col gap-6 w-full max-w-full min-w-0">
+      <div className="flex flex-col gap-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
           <div>
             <span className="font-mono-eyebrow text-xs bronze-text uppercase tracking-wider">
@@ -267,9 +267,9 @@ export function EnterprisePage({ onOpenDemo }: EnterprisePageProps) {
           </span>
         </div>
 
-        <div className="code-window rounded-xl overflow-hidden border border-white/10 bg-[#14181C] w-full max-w-full min-w-0">
-          <div className="overflow-x-auto w-full max-w-full min-w-0">
-            <table className="w-full text-left text-xs font-mono-code border-collapse min-w-[640px]">
+        <div className="code-window rounded-xl overflow-hidden border border-white/10 bg-[#14181C]">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs font-mono-code border-collapse">
               <thead>
                 <tr className="border-b border-white/10 bg-white/[0.02]">
                   <th className="p-4 font-mono-eyebrow text-on-surface-variant uppercase">Capability</th>

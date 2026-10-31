@@ -18,13 +18,13 @@ export function HeroSection({ onOpenDemo, onExploreOSS }: HeroSectionProps) {
   };
 
   return (
-    <section id="product" className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center max-w-6xl mx-auto w-full pt-4 min-w-0 max-w-full">
+    <section id="product" className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center max-w-6xl mx-auto w-full pt-4">
       {/* Left Column: Copy & Actions */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="lg:col-span-6 flex flex-col gap-6 items-center text-center lg:items-start lg:text-left min-w-0 max-w-full"
+        className="lg:col-span-6 flex flex-col gap-6 items-center text-center lg:items-start lg:text-left"
       >
         <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
           <span className="font-mono-eyebrow text-mono-eyebrow bronze-text tracking-widest uppercase">
@@ -98,10 +98,10 @@ export function HeroSection({ onOpenDemo, onExploreOSS }: HeroSectionProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.15 }}
-        className="lg:col-span-6 flex flex-col gap-4 w-full min-w-0 max-w-full"
+        className="lg:col-span-6 flex flex-col gap-4 w-full"
       >
         {/* Verified Declarative Policy Window */}
-        <div className="code-window rounded-xl overflow-hidden shadow-2xl flex flex-col border border-white/10 w-full min-w-0 max-w-full">
+        <div className="code-window rounded-xl overflow-hidden shadow-2xl flex flex-col border border-white/10">
           <div className="bg-surface-container-high px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-red-400/80"></span>

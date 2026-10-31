@@ -11,15 +11,15 @@ export function Background3D() {
     if (!ctx) return;
 
     let animationFrameId: number;
-    let width = (canvas.width = document.documentElement.clientWidth || window.innerWidth);
-    let height = (canvas.height = document.documentElement.clientHeight || window.innerHeight);
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const handleResize = () => {
       if (!canvas) return;
-      width = canvas.width = document.documentElement.clientWidth || window.innerWidth;
-      height = canvas.height = document.documentElement.clientHeight || window.innerHeight;
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
     };
     window.addEventListener('resize', handleResize);
 
@@ -89,8 +89,7 @@ export function Background3D() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 z-0 pointer-events-none opacity-40 max-w-full w-full h-full"
-      style={{ maxWidth: '100vw', maxHeight: '100vh' }}
+      className="fixed inset-0 z-0 pointer-events-none opacity-40"
       aria-hidden="true"
     />
   );

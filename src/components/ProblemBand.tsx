@@ -38,7 +38,7 @@ export function ProblemBand() {
   ];
 
   return (
-    <section className="flex flex-col gap-10 max-w-6xl mx-auto w-full scroll-mt-24 min-w-0 max-w-full">
+    <section className="flex flex-col gap-10 max-w-6xl mx-auto w-full scroll-mt-24">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

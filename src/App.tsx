@@ -71,7 +71,7 @@ export default function App() {
         onOpenDemo={() => setIsDemoModalOpen(true)}
       />
 
-      <main className="flex-grow pt-28 pb-20 px-4 sm:px-6 max-w-container-max mx-auto w-full relative z-10 flex flex-col gap-24 sm:gap-28 min-w-0 max-w-full">
+      <main className="flex-grow pt-28 pb-20 px-4 sm:px-6 max-w-container-max mx-auto w-full relative z-10 flex flex-col gap-24 sm:gap-28">
         {activeView === 'home' && (
           <>
             <HeroSection

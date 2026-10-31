@@ -2,14 +2,14 @@ import { motion } from 'motion/react';
 
 export function ComparisonStrip() {
   return (
-    <div className="flex flex-col gap-6 max-w-6xl mx-auto w-full min-w-0 max-w-full">
+    <div className="flex flex-col gap-6 max-w-6xl mx-auto w-full">
       {/* Comparison Strip */}
       <motion.section
         initial={{ opacity: 0, scale: 0.98 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.4 }}
-        className="flex flex-col rounded-xl overflow-hidden border border-white/10 font-mono-code text-xs sm:text-sm w-full max-w-full min-w-0 bg-[#14181C]"
+        className="flex flex-col rounded-xl overflow-hidden border border-white/10 font-mono-code text-xs sm:text-sm w-full bg-[#14181C]"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 p-6 border-b border-white/5 gap-4 md:gap-0">
           <div className="md:pr-6 text-on-surface-variant flex flex-col gap-1">

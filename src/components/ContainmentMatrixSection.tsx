@@ -54,7 +54,7 @@ export function ContainmentMatrixSection() {
   ];
 
   return (
-    <section id="containment" className="flex flex-col gap-10 max-w-6xl mx-auto w-full scroll-mt-24 min-w-0 max-w-full">
+    <section id="containment" className="flex flex-col gap-10 max-w-6xl mx-auto w-full scroll-mt-24">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -125,8 +125,8 @@ export function ContainmentMatrixSection() {
       </div>
 
       {/* Capability Matrix Table */}
-      <div className="code-window rounded-xl overflow-hidden border border-white/10 bg-[#14181C] w-full max-w-full min-w-0">
-        <div className="bg-surface-container-high px-4 sm:px-5 py-3 border-b border-white/10 flex flex-wrap items-center justify-between gap-2">
+      <div className="code-window rounded-xl overflow-hidden border border-white/10 bg-[#14181C]">
+        <div className="bg-surface-container-high px-5 py-3 border-b border-white/10 flex flex-wrap items-center justify-between gap-2">
           <span className="font-mono-eyebrow text-xs text-on-background font-semibold">
             Platform Capabilities Matrix
           </span>
@@ -136,8 +136,8 @@ export function ContainmentMatrixSection() {
           </span>
         </div>
 
-        <div className="overflow-x-auto w-full max-w-full min-w-0">
-          <table className="w-full text-left text-xs font-mono-code border-collapse min-w-[500px]">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs font-mono-code border-collapse">
             <thead>
               <tr className="border-b border-white/10 bg-white/[0.02]">
                 <th className="p-3.5 font-mono-eyebrow text-on-surface-variant uppercase text-[11px]">Security Capability</th>

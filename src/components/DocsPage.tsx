@@ -215,7 +215,7 @@ Policy.builder("agent").tool("fetch_doc", reads="file_path").read_paths("./works
   const [activeItem, setActiveItem] = useState<DocItem>(docsData[0]);
 
   return (
-    <div className="flex flex-col gap-10 max-w-6xl mx-auto w-full py-6 min-w-0 max-w-full">
+    <div className="flex flex-col gap-10 max-w-6xl mx-auto w-full py-6">
       {/* Header */}
       <div className="flex flex-col gap-3 text-center max-w-3xl mx-auto">
         <div className="font-mono-eyebrow text-mono-eyebrow bronze-text tracking-widest uppercase flex items-center justify-center gap-2">
@@ -297,7 +297,7 @@ Policy.builder("agent").tool("fetch_doc", reads="file_path").read_paths("./works
         </div>
 
         {/* Right: Selected Article Content */}
-        <div className="lg:col-span-7 code-window rounded-xl p-6 border border-white/10 flex flex-col gap-5 bg-[#161B20] w-full max-w-full min-w-0">
+        <div className="lg:col-span-7 code-window rounded-xl p-6 border border-white/10 flex flex-col gap-5 bg-[#161B20]">
           <div className="flex items-center justify-between border-b border-white/10 pb-3">
             <div>
               <h2 className="font-headline-md text-lg text-on-background font-bold">
@@ -333,10 +333,10 @@ Policy.builder("agent").tool("fetch_doc", reads="file_path").read_paths("./works
           )}
 
           {activeItem.codeSnippet && (
-            <div className="flex flex-col gap-1.5 w-full max-w-full min-w-0">
+            <div className="flex flex-col gap-1.5">
               <span className="text-xs font-mono-eyebrow text-on-surface-variant">Verified Python Implementation:</span>
-              <div className="p-4 rounded-lg bg-[#111518] border border-white/10 overflow-x-auto text-xs text-on-surface whitespace-pre leading-relaxed font-mono-code w-full max-w-full min-w-0">
-                <code className="block min-w-0">{activeItem.codeSnippet}</code>
+              <div className="p-4 rounded-lg bg-[#111518] border border-white/10 overflow-x-auto text-xs text-on-surface whitespace-pre leading-relaxed font-mono-code">
+                <code>{activeItem.codeSnippet}</code>
               </div>
             </div>
           )}
