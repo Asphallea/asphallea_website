@@ -7,6 +7,8 @@ interface DemoRequestModalProps {
   initialUseCase?: string;
 }
 
+const FORMSPREE_ENDPOINT = import.meta.env?.VITE_WAITLIST_API || 'https://formspree.io/f/xljjwzln';
+
 export function DemoRequestModal({ isOpen, onClose, initialUseCase = '' }: DemoRequestModalProps) {
   const [formData, setFormData] = useState({
     name: '',
@@ -76,26 +78,31 @@ export function DemoRequestModal({ isOpen, onClose, initialUseCase = '' }: DemoR
       existingLeads.push(newLead);
       localStorage.setItem('asphallea_demo_requests', JSON.stringify(existingLeads));
 
-      // 2. Dispatch to Formspree / Webhook API if configured
-      const apiUrl = import.meta.env?.VITE_WAITLIST_API;
-      if (apiUrl) {
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            company: formData.company,
-            useCase: formData.useCase,
-            context: formData.context,
-          }),
-        });
-        if (!response.ok) {
-          throw new Error('Form service temporarily unavailable. Please try again or reach out directly.');
+      // 2. Dispatch to Formspree endpoint with JSON AJAX
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          useCase: formData.useCase,
+          context: formData.context,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => null);
+        if (data && data.errors && Array.isArray(data.errors)) {
+          const msg = data.errors.map((e: any) => `${e.field ? e.field + ': ' : ''}${e.message}`).join(', ');
+          throw new Error(msg || 'Form validation error. Please check your inputs.');
+        } else if (data && data.error) {
+          throw new Error(data.error);
         }
+        throw new Error('Form service temporarily unavailable. Please try again or reach out directly.');
       }
 
       setSuccess(true);
@@ -180,7 +187,7 @@ export function DemoRequestModal({ isOpen, onClose, initialUseCase = '' }: DemoR
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <form action={FORMSPREE_ENDPOINT} method="POST" onSubmit={handleSubmit} className="flex flex-col gap-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
                   <label htmlFor="demo-name" className="text-xs font-mono-eyebrow text-on-surface-variant">
@@ -188,6 +195,7 @@ export function DemoRequestModal({ isOpen, onClose, initialUseCase = '' }: DemoR
                   </label>
                   <input
                     id="demo-name"
+                    name="name"
                     type="text"
                     required
                     value={formData.name}
@@ -203,6 +211,7 @@ export function DemoRequestModal({ isOpen, onClose, initialUseCase = '' }: DemoR
                   </label>
                   <input
                     id="demo-company"
+                    name="company"
                     type="text"
                     required
                     value={formData.company}
@@ -219,6 +228,7 @@ export function DemoRequestModal({ isOpen, onClose, initialUseCase = '' }: DemoR
                 </label>
                 <input
                   id="demo-email"
+                  name="email"
                   type="email"
                   required
                   value={formData.email}
@@ -237,6 +247,7 @@ export function DemoRequestModal({ isOpen, onClose, initialUseCase = '' }: DemoR
                 </label>
                 <input
                   id="demo-usecase"
+                  name="useCase"
                   type="text"
                   required
                   value={formData.useCase}
@@ -252,6 +263,7 @@ export function DemoRequestModal({ isOpen, onClose, initialUseCase = '' }: DemoR
                 </label>
                 <textarea
                   id="demo-context"
+                  name="context"
                   rows={2}
                   value={formData.context}
                   onChange={(e) => setFormData({ ...formData, context: e.target.value })}

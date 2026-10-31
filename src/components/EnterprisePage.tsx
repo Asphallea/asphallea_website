@@ -9,6 +9,8 @@ interface EnterprisePageProps {
   onOpenDemo: () => void;
 }
 
+const FORMSPREE_ENDPOINT = import.meta.env?.VITE_WAITLIST_API || 'https://formspree.io/f/xljjwzln';
+
 export function EnterprisePage({ onOpenDemo }: EnterprisePageProps) {
   const [formData, setFormData] = useState({
     name: '',
@@ -49,26 +51,31 @@ export function EnterprisePage({ onOpenDemo }: EnterprisePageProps) {
       });
       localStorage.setItem('asphallea_demo_requests', JSON.stringify(existing));
 
-      // 2. Dispatch to Formspree / Webhook API if configured
-      const apiUrl = import.meta.env?.VITE_WAITLIST_API;
-      if (apiUrl) {
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            company: formData.company,
-            useCase: formData.useCase,
-            context: formData.context,
-          }),
-        });
-        if (!response.ok) {
-          throw new Error('Form service temporarily unavailable. Please try again or reach out directly.');
+      // 2. Dispatch to Formspree endpoint with JSON AJAX
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          useCase: formData.useCase,
+          context: formData.context,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => null);
+        if (data && data.errors && Array.isArray(data.errors)) {
+          const msg = data.errors.map((e: any) => `${e.field ? e.field + ': ' : ''}${e.message}`).join(', ');
+          throw new Error(msg || 'Form validation error. Please check your inputs.');
+        } else if (data && data.error) {
+          throw new Error(data.error);
         }
+        throw new Error('Form service temporarily unavailable. Please try again or reach out directly.');
       }
 
       setSuccess(true);
@@ -399,7 +406,7 @@ export function EnterprisePage({ onOpenDemo }: EnterprisePageProps) {
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
+            <form action={FORMSPREE_ENDPOINT} method="POST" onSubmit={handleSubmit} className="flex flex-col gap-3.5">
               <h3 className="font-headline-md text-sm text-on-background font-bold">
                 Request a Technical Demo &amp; Scoped Evaluation
               </h3>
@@ -416,6 +423,7 @@ export function EnterprisePage({ onOpenDemo }: EnterprisePageProps) {
                   <label htmlFor="eval-name" className="text-[11px] font-mono-eyebrow text-on-surface-variant">Name *</label>
                   <input
                     id="eval-name"
+                    name="name"
                     type="text"
                     required
                     value={formData.name}
@@ -428,6 +436,7 @@ export function EnterprisePage({ onOpenDemo }: EnterprisePageProps) {
                   <label htmlFor="eval-company" className="text-[11px] font-mono-eyebrow text-on-surface-variant">Company *</label>
                   <input
                     id="eval-company"
+                    name="company"
                     type="text"
                     required
                     value={formData.company}
@@ -442,6 +451,7 @@ export function EnterprisePage({ onOpenDemo }: EnterprisePageProps) {
                 <label htmlFor="eval-email" className="text-[11px] font-mono-eyebrow text-on-surface-variant">Email Address *</label>
                 <input
                   id="eval-email"
+                  name="email"
                   type="email"
                   required
                   value={formData.email}
@@ -455,6 +465,7 @@ export function EnterprisePage({ onOpenDemo }: EnterprisePageProps) {
                 <label htmlFor="eval-usecase" className="text-[11px] font-mono-eyebrow text-on-surface-variant">Agent Use Case / Deployment *</label>
                 <input
                   id="eval-usecase"
+                  name="useCase"
                   type="text"
                   required
                   value={formData.useCase}
@@ -468,6 +479,7 @@ export function EnterprisePage({ onOpenDemo }: EnterprisePageProps) {
                 <label htmlFor="eval-context" className="text-[11px] font-mono-eyebrow text-on-surface-variant">Additional Context (Optional)</label>
                 <textarea
                   id="eval-context"
+                  name="context"
                   rows={2}
                   value={formData.context}
                   onChange={(e) => setFormData({ ...formData, context: e.target.value })}
