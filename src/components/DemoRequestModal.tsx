@@ -188,6 +188,7 @@ export function DemoRequestModal({ isOpen, onClose, initialUseCase = '' }: DemoR
             )}
 
             <form action={FORMSPREE_ENDPOINT} method="POST" onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <input type="text" name="_gotcha" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
                   <label htmlFor="demo-name" className="text-xs font-mono-eyebrow text-on-surface-variant">

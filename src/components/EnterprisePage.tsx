@@ -115,7 +115,7 @@ export function EnterprisePage({ onOpenDemo }: EnterprisePageProps) {
       feature: 'Centralized Policy GitOps Distribution',
       tier: 'Enterprise',
       status: 'Private Preview',
-      description: 'Push immutable, versioned policy documents down to developer workstations and containerized fleet agents.',
+      description: 'Push canonical, versioned policy documents down to developer workstations and containerized fleet agents.',
     },
     {
       feature: 'Fleet Telemetry Web Console',
@@ -133,29 +133,29 @@ export function EnterprisePage({ onOpenDemo }: EnterprisePageProps) {
 
   const deploymentPractices = [
     {
-      title: '100% Self-Hosted & In-VPC',
+      title: 'Self-Hosted Runtime Deployment',
       icon: Server,
-      desc: 'The runtime runs inside your cloud VPC or on-premise infrastructure. No external network dependencies are required for policy enforcement.',
+      desc: 'The runtime runs inside your cloud VPC or on-premise infrastructure without external network dependencies for policy enforcement.',
     },
     {
-      title: 'Zero Telemetry Exfiltration',
+      title: 'Transparent Telemetry & Data Boundaries',
       icon: Lock,
-      desc: 'Asphallea does not phone home. Your code, prompts, tool arguments, and customer data never leave your environment.',
+      desc: 'The runtime does not send telemetry to Asphallea. Data exchanged with your configured model providers, tools, and audit destinations follows your deployment configuration. (Inquiries submitted via this website are processed via Formspree for evaluation follow-ups).',
     },
     {
       title: 'Deterministic Non-LLM Decisions',
       icon: ShieldCheck,
-      desc: 'Enforcement decisions are evaluated deterministically in microseconds, adding virtually zero operational latency and eliminating hallucination risk.',
+      desc: 'Policy decisions are evaluated deterministically without an LLM in the enforcement loop. This controls tool execution boundaries, but does not prevent the agent from hallucinating or guarantee that permitted actions are correct.',
     },
     {
-      title: 'Evidence Records for Compliance',
+      title: 'Append-Only Audit Logging',
       icon: FileCheck,
-      desc: 'Structured JSONL logs provide immutable proof of agent boundary checks for use in your internal security and compliance reviews.',
+      desc: 'Structured JSONL logs provide append-only audit records of tool invocations, arguments, and policy decisions with credential redaction. Application-level append-only writes do not prevent a host administrator from modifying or deleting local files.',
     },
   ];
 
   return (
-    <div className="flex flex-col gap-16 max-w-6xl mx-auto w-full py-6">
+    <div className="flex flex-col gap-16 max-w-6xl mx-auto w-full py-6 min-w-0">
       {/* Hero Header */}
       <div className="flex flex-col gap-4 text-center max-w-3xl mx-auto">
         <div className="flex items-center justify-center gap-2">
@@ -191,10 +191,10 @@ export function EnterprisePage({ onOpenDemo }: EnterprisePageProps) {
               01
             </div>
             <h3 className="font-headline-md text-base text-on-background font-semibold">
-              Autonomous Coding Agents &amp; CLIs
+              Developer Coding &amp; Subprocess Workflows
             </h3>
             <p className="text-xs text-on-surface-variant leading-relaxed">
-              Confine local or CI coding agents (like Claude Code, Codex, or custom developer tools) strictly to project repositories. Bar reads to private SSH keys, cloud credentials, or sibling directories.
+              Evaluate containment for developer agent harnesses and code-generation subprocesses. Restrict execution strictly to project directories and bar reads to private SSH keys, cloud credentials, or sibling paths. Wrapping external CLIs requires verifying their specific process launch path and host OS containment support.
             </p>
           </div>
 
@@ -252,7 +252,7 @@ export function EnterprisePage({ onOpenDemo }: EnterprisePageProps) {
       </div>
 
       {/* Feature Availability Matrix */}
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 w-full max-w-full min-w-0">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
           <div>
             <span className="font-mono-eyebrow text-xs bronze-text uppercase tracking-wider">
@@ -267,9 +267,9 @@ export function EnterprisePage({ onOpenDemo }: EnterprisePageProps) {
           </span>
         </div>
 
-        <div className="code-window rounded-xl overflow-hidden border border-white/10 bg-[#14181C]">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs font-mono-code border-collapse">
+        <div className="code-window rounded-xl overflow-hidden border border-white/10 bg-[#14181C] w-full max-w-full min-w-0">
+          <div className="overflow-x-auto w-full max-w-full min-w-0">
+            <table className="w-full text-left text-xs font-mono-code border-collapse min-w-[640px]">
               <thead>
                 <tr className="border-b border-white/10 bg-white/[0.02]">
                   <th className="p-4 font-mono-eyebrow text-on-surface-variant uppercase">Capability</th>
@@ -407,6 +407,7 @@ export function EnterprisePage({ onOpenDemo }: EnterprisePageProps) {
             </div>
           ) : (
             <form action={FORMSPREE_ENDPOINT} method="POST" onSubmit={handleSubmit} className="flex flex-col gap-3.5">
+              <input type="text" name="_gotcha" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
               <h3 className="font-headline-md text-sm text-on-background font-bold">
                 Request a Technical Demo &amp; Scoped Evaluation
               </h3>

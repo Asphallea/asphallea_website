@@ -210,10 +210,10 @@ export function PolicyBuilderSection() {
         </div>
 
         {/* Output Code Panel */}
-        <div className="lg:col-span-7 code-window rounded-xl overflow-hidden border border-white/10 flex flex-col justify-between bg-[#13171A]">
+        <div className="lg:col-span-7 code-window rounded-xl overflow-hidden border border-white/10 flex flex-col justify-between bg-[#13171A] w-full max-w-full min-w-0">
           {/* Format Selector Bar */}
-          <div className="bg-surface-container-high px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
-            <div className="flex items-center gap-2">
+          <div className="bg-surface-container-high px-4 py-2.5 border-b border-white/10 flex flex-wrap items-center justify-between gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={() => setOutputFormat('python')}
                 className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono-code transition-colors ${
@@ -258,8 +258,8 @@ export function PolicyBuilderSection() {
           </div>
 
           {/* Code Viewer */}
-          <div className="p-5 font-mono-code text-xs sm:text-sm text-on-surface leading-relaxed whitespace-pre overflow-x-auto bg-[#13171A] flex-1">
-            <code>{outputCode}</code>
+          <div className="p-4 sm:p-5 font-mono-code text-xs sm:text-sm text-on-surface leading-relaxed whitespace-pre overflow-x-auto bg-[#13171A] flex-1 w-full max-w-full min-w-0">
+            <code className="block min-w-0">{outputCode}</code>
           </div>
 
           {/* Platform Behavior Note */}

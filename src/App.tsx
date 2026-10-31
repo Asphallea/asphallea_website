@@ -71,7 +71,7 @@ export default function App() {
         onOpenDemo={() => setIsDemoModalOpen(true)}
       />
 
-      <main className="flex-grow pt-28 pb-20 px-4 sm:px-6 max-w-container-max mx-auto w-full relative z-10 flex flex-col gap-24 sm:gap-28">
+      <main className="flex-grow pt-28 pb-20 px-4 sm:px-6 max-w-container-max mx-auto w-full relative z-10 flex flex-col gap-24 sm:gap-28 min-w-0 max-w-full">
         {activeView === 'home' && (
           <>
             <HeroSection
@@ -79,6 +79,13 @@ export default function App() {
               onExploreOSS={handleExploreOSS}
             />
             <ProblemBand />
+            <EnterprisePreviewSection
+              onOpenDemo={() => setIsDemoModalOpen(true)}
+              onViewEnterprisePage={() => {
+                handleNavigate('enterprise');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
             <QuickstartSection />
             <SandboxTerminalSection />
             <PolicyBuilderSection />
@@ -87,13 +94,6 @@ export default function App() {
             <IntegrationSection />
             <FeaturesSection />
             <ComparisonStrip />
-            <EnterprisePreviewSection
-              onOpenDemo={() => setIsDemoModalOpen(true)}
-              onViewEnterprisePage={() => {
-                handleNavigate('enterprise');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-            />
           </>
         )}
 

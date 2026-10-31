@@ -31,16 +31,19 @@ export function Navbar({ activeView, onNavigate, onOpenDemo }: NavbarProps) {
       });
   }, []);
 
-  const handleNavClick = (view: 'home' | 'enterprise' | 'docs', hash?: string) => {
-    onNavigate(view);
-    setIsOpen(false);
-    if (hash) {
-      setTimeout(() => {
-        const el = document.querySelector(hash);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 50);
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, view: 'home' | 'enterprise' | 'docs', hash?: string) => {
+    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
+      e.preventDefault();
+      onNavigate(view);
+      setIsOpen(false);
+      if (hash) {
+        setTimeout(() => {
+          const el = document.querySelector(hash);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 50);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
   };
 
@@ -48,8 +51,9 @@ export function Navbar({ activeView, onNavigate, onOpenDemo }: NavbarProps) {
     <nav className="fixed top-0 left-0 w-full z-40 glass-panel border-b border-white/10" aria-label="Main Navigation">
       <div className="flex justify-between items-center px-4 sm:px-6 h-16 max-w-6xl mx-auto w-full">
         {/* Brand Logo */}
-        <button
-          onClick={() => handleNavClick('home')}
+        <a
+          href="/"
+          onClick={(e) => handleLinkClick(e, 'home')}
           className="flex items-center gap-3 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
           aria-label="Asphallea Home"
         >
@@ -70,34 +74,37 @@ export function Navbar({ activeView, onNavigate, onOpenDemo }: NavbarProps) {
               Runtime Security for Agents
             </span>
           </div>
-        </button>
+        </a>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-6">
-          <button
-            onClick={() => handleNavClick('home', '#product')}
-            className={`font-mono-eyebrow text-xs uppercase transition-colors px-1 py-1 ${
+          <a
+            href="/#product"
+            onClick={(e) => handleLinkClick(e, 'home', '#product')}
+            className={`font-mono-eyebrow text-xs uppercase transition-colors px-1 py-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded ${
               activeView === 'home' ? 'text-primary font-bold' : 'text-on-surface-variant hover:text-on-background'
             }`}
           >
             Product
-          </button>
-          <button
-            onClick={() => handleNavClick('enterprise')}
-            className={`font-mono-eyebrow text-xs uppercase transition-colors px-1 py-1 ${
+          </a>
+          <a
+            href="/enterprise"
+            onClick={(e) => handleLinkClick(e, 'enterprise')}
+            className={`font-mono-eyebrow text-xs uppercase transition-colors px-1 py-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded ${
               activeView === 'enterprise' ? 'text-primary font-bold' : 'text-on-surface-variant hover:text-on-background'
             }`}
           >
             Enterprise
-          </button>
-          <button
-            onClick={() => handleNavClick('docs')}
-            className={`font-mono-eyebrow text-xs uppercase transition-colors px-1 py-1 ${
+          </a>
+          <a
+            href="/docs"
+            onClick={(e) => handleLinkClick(e, 'docs')}
+            className={`font-mono-eyebrow text-xs uppercase transition-colors px-1 py-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded ${
               activeView === 'docs' ? 'text-primary font-bold' : 'text-on-surface-variant hover:text-on-background'
             }`}
           >
             Developers / Docs
-          </button>
+          </a>
           <a
             className="flex items-center gap-1.5 font-mono-eyebrow text-xs text-on-surface-variant hover:text-primary transition-colors"
             href="https://github.com/Asphallea/Asphallea"
@@ -142,30 +149,33 @@ export function Navbar({ activeView, onNavigate, onOpenDemo }: NavbarProps) {
             className="md:hidden overflow-hidden bg-surface-container-high/95 backdrop-blur-md border-b border-white/10"
           >
             <div className="flex flex-col px-6 py-4 gap-4">
-              <button
+              <a
+                href="/"
                 className={`text-left font-mono-eyebrow text-xs uppercase py-1 ${
                   activeView === 'home' ? 'text-primary font-bold' : 'text-on-surface-variant'
                 }`}
-                onClick={() => handleNavClick('home')}
+                onClick={(e) => handleLinkClick(e, 'home')}
               >
                 Product Overview
-              </button>
-              <button
+              </a>
+              <a
+                href="/enterprise"
                 className={`text-left font-mono-eyebrow text-xs uppercase py-1 ${
                   activeView === 'enterprise' ? 'text-primary font-bold' : 'text-on-surface-variant'
                 }`}
-                onClick={() => handleNavClick('enterprise')}
+                onClick={(e) => handleLinkClick(e, 'enterprise')}
               >
                 Enterprise Offering
-              </button>
-              <button
+              </a>
+              <a
+                href="/docs"
                 className={`text-left font-mono-eyebrow text-xs uppercase py-1 ${
                   activeView === 'docs' ? 'text-primary font-bold' : 'text-on-surface-variant'
                 }`}
-                onClick={() => handleNavClick('docs')}
+                onClick={(e) => handleLinkClick(e, 'docs')}
               >
                 Developers / Documentation
-              </button>
+              </a>
               <a
                 className="flex items-center gap-2 font-mono-eyebrow text-xs text-on-surface-variant py-1"
                 href="https://github.com/Asphallea/Asphallea"

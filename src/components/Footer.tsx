@@ -7,6 +7,14 @@ interface FooterProps {
 }
 
 export function Footer({ onNavigate, onOpenDemo }: FooterProps) {
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, view: 'home' | 'enterprise' | 'docs') => {
+    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
+      e.preventDefault();
+      onNavigate(view);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <footer className="w-full border-t border-white/10 bg-[#14181C] z-10 mt-auto pt-12 pb-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col gap-10">
@@ -58,33 +66,27 @@ export function Footer({ onNavigate, onOpenDemo }: FooterProps) {
             <span className="font-mono-eyebrow text-on-background uppercase tracking-wider text-[11px]">
               Navigation
             </span>
-            <button
-              onClick={() => {
-                onNavigate('home');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="text-left text-on-surface-variant hover:text-primary transition-colors"
+            <a
+              href="/"
+              onClick={(e) => handleLinkClick(e, 'home')}
+              className="text-left text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded"
             >
               Product Overview
-            </button>
-            <button
-              onClick={() => {
-                onNavigate('enterprise');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="text-left text-on-surface-variant hover:text-primary transition-colors"
+            </a>
+            <a
+              href="/enterprise"
+              onClick={(e) => handleLinkClick(e, 'enterprise')}
+              className="text-left text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded"
             >
               Enterprise Offering
-            </button>
-            <button
-              onClick={() => {
-                onNavigate('docs');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="text-left text-on-surface-variant hover:text-primary transition-colors"
+            </a>
+            <a
+              href="/docs"
+              onClick={(e) => handleLinkClick(e, 'docs')}
+              className="text-left text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded"
             >
               Documentation &amp; API
-            </button>
+            </a>
           </div>
 
           {/* Open Source Resources */}
@@ -145,7 +147,7 @@ export function Footer({ onNavigate, onOpenDemo }: FooterProps) {
               <ExternalLink className="w-3 h-3 opacity-60" />
             </a>
             <span className="text-on-surface-variant/70 text-[11px]">
-              In-VPC Execution · Zero Telemetry
+              Self-Hosted Runtime · No Telemetry Sent to Asphallea
             </span>
           </div>
         </div>

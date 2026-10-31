@@ -12,7 +12,7 @@ export function EnterprisePreviewSection({ onOpenDemo, onViewEnterprisePage }: E
     { num: '02', title: 'Define Policy', desc: 'Collaboratively specify exact permitted paths, allowed network hosts, and forbidden actions.' },
     { num: '03', title: 'Integrate & Test', desc: 'Wrap client sessions or invoke tools via Asphallea runtime in staging environments.' },
     { num: '04', title: 'Review Coverage', desc: 'Assess audit logs, verify legitimate-task completion, and test containment boundaries.' },
-    { num: '05', title: 'Decide Next Step', desc: 'Review operational telemetry and coverage to decide whether to proceed to production.' },
+    { num: '05', title: 'Decide Next Step', desc: 'Review operational audit logs and containment coverage to decide whether to proceed to production.' },
   ];
 
   return (
@@ -30,10 +30,10 @@ export function EnterprisePreviewSection({ onOpenDemo, onViewEnterprisePage }: E
           COMMERCIAL OFFERING UNDER DEVELOPMENT
         </div>
         <h2 className="font-headline-lg text-headline-lg text-on-background">
-          Enterprise governance for agent fleets.
+          Enterprise evaluation &amp; fleet governance.
         </h2>
         <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-          While the Asphallea runtime is open-source, engineering and security teams need centralized policy distribution, SIEM pipelines, and hands-on deployment support. We conduct narrowly scoped paid evaluations to help teams validate runtime containment.
+          Built for engineering and security leaders deploying autonomous agents with access to filesystems, internal networks, or third-party tools. We partner directly with technical teams on narrowly scoped paid evaluations to threat-model agent workflows, craft custom policies, and verify host OS containment.
         </p>
       </motion.div>
 
@@ -86,7 +86,7 @@ export function EnterprisePreviewSection({ onOpenDemo, onViewEnterprisePage }: E
             Fleet Policy Distribution
           </h3>
           <p className="text-xs text-on-surface-variant leading-relaxed">
-            Centralized policy repository integration (GitOps). Distribute verified, immutable policy documents across developer machines and cloud runtimes.
+            Centralized policy repository integration (GitOps). Distribute verified, canonical policy documents across developer machines and cloud runtimes.
           </p>
         </div>
 
@@ -103,7 +103,7 @@ export function EnterprisePreviewSection({ onOpenDemo, onViewEnterprisePage }: E
             Central Management Console
           </h3>
           <p className="text-xs text-on-surface-variant leading-relaxed">
-            Unified management console for telemetry aggregation, policy revision histories, and fleet-wide status monitoring.
+            Unified management console for policy distribution, event log aggregation, and fleet-wide status monitoring.
           </p>
         </div>
       </div>
@@ -146,12 +146,18 @@ export function EnterprisePreviewSection({ onOpenDemo, onViewEnterprisePage }: E
               <span>Book a technical demo</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
-            <button
-              onClick={onViewEnterprisePage}
-              className="px-4 py-2.5 rounded btn-ghost font-mono-eyebrow text-xs uppercase tracking-wider transition-all whitespace-nowrap"
+            <a
+              href="/enterprise"
+              onClick={(e) => {
+                if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
+                  e.preventDefault();
+                  onViewEnterprisePage();
+                }
+              }}
+              className="px-4 py-2.5 rounded btn-ghost font-mono-eyebrow text-xs uppercase tracking-wider transition-all whitespace-nowrap focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
             >
               Details &amp; Use Cases
-            </button>
+            </a>
           </div>
         </div>
       </div>

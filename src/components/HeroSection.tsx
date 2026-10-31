@@ -18,13 +18,13 @@ export function HeroSection({ onOpenDemo, onExploreOSS }: HeroSectionProps) {
   };
 
   return (
-    <section id="product" className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center max-w-6xl mx-auto w-full pt-4">
+    <section id="product" className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center max-w-6xl mx-auto w-full pt-4 min-w-0 max-w-full">
       {/* Left Column: Copy & Actions */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="lg:col-span-6 flex flex-col gap-6 items-center text-center lg:items-start lg:text-left"
+        className="lg:col-span-6 flex flex-col gap-6 items-center text-center lg:items-start lg:text-left min-w-0 max-w-full"
       >
         <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
           <span className="font-mono-eyebrow text-mono-eyebrow bronze-text tracking-widest uppercase">
@@ -52,13 +52,19 @@ export function HeroSection({ onOpenDemo, onExploreOSS }: HeroSectionProps) {
             <span>Book a technical demo</span>
             <ArrowRight className="w-4 h-4" />
           </button>
-          <button
-            onClick={onExploreOSS}
-            className="px-6 py-3.5 rounded btn-ghost font-mono-eyebrow text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2"
+          <a
+            href="#quickstart"
+            onClick={(e) => {
+              if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
+                e.preventDefault();
+                onExploreOSS();
+              }
+            }}
+            className="px-6 py-3.5 rounded btn-ghost font-mono-eyebrow text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
           >
             <Terminal className="w-4 h-4 text-primary" />
             <span>Try open-source runtime</span>
-          </button>
+          </a>
         </div>
 
         {/* Installation snippet with transparency */}
@@ -92,10 +98,10 @@ export function HeroSection({ onOpenDemo, onExploreOSS }: HeroSectionProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.15 }}
-        className="lg:col-span-6 flex flex-col gap-4 w-full"
+        className="lg:col-span-6 flex flex-col gap-4 w-full min-w-0 max-w-full"
       >
         {/* Verified Declarative Policy Window */}
-        <div className="code-window rounded-xl overflow-hidden shadow-2xl flex flex-col border border-white/10">
+        <div className="code-window rounded-xl overflow-hidden shadow-2xl flex flex-col border border-white/10 w-full min-w-0 max-w-full">
           <div className="bg-surface-container-high px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-red-400/80"></span>

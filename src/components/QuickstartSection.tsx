@@ -6,61 +6,79 @@ export function QuickstartSection() {
   const [activeTab, setActiveTab] = useState<'policy' | 'containment'>('policy');
   const [copied, setCopied] = useState(false);
 
-  const policySnippet = `from asphallea import Policy, guard, PolicyViolation
+  const policySnippet = `# Prerequisite: pip install asphallea
+from pathlib import Path
+from asphallea import Policy, guard, PolicyViolation
 
-# 1. Declare a least-privilege policy for an agent
+# 1. Setup workspace & sample file safely
+workspace = Path("./workspace").resolve()
+workspace.mkdir(parents=True, exist_ok=True)
+sample_file = workspace / "notes.txt"
+sample_file.write_text("Hello from secure agent workspace!", encoding="utf-8")
+
+# 2. Declare a least-privilege policy for an agent
 policy = (
     Policy.builder("agent-workspace-scope")
     .tool("read_data", reads="path")
-    .read_paths("./workspace")
+    .read_paths(str(workspace))
     .deny_network()
     .build()
 )
 
-# 2. Intercept the agent's tool before it runs
+# 3. Intercept the agent's tool before it runs (Policy Interception Tier)
 @guard(policy, tool="read_data", reads="path")
 def read_data(path: str) -> str:
     with open(path, "r", encoding="utf-8") as f:
         return f.read()
 
-# 3. Permitted invocation inside declared workspace
-content = read_data("./workspace/notes.txt")
+# 4. Permitted invocation inside declared workspace
+content = read_data(str(sample_file))
+print("Allowed read:", content)
 
-# 4. Out-of-bounds invocation raises PolicyViolation immediately
+# 5. Out-of-bounds target is denied before open() is ever invoked
+# Policy interception evaluates allowlists deterministically without needing
+# the target file to exist on the host filesystem.
 try:
-    read_data("/etc/shadow")
+    read_data(str(workspace.parent / "confidential_keys.env"))
 except PolicyViolation as err:
-    # Denied deterministically before open() was ever called
     print(f"Policy denied [{err.decision.rule}]: {err.decision.reason}")`;
 
-  const containmentSnippet = `from asphallea import Policy, sandbox
+  const containmentSnippet = `# Prerequisite: pip install asphallea
+from pathlib import Path
+from asphallea import Policy, sandbox
 
-# 1. Policy for shell execution workloads
+# 1. Setup workspace and output directory safely
+workspace = Path("./workspace").resolve()
+out_dir = workspace / "out"
+out_dir.mkdir(parents=True, exist_ok=True)
+
+# 2. Policy for shell execution workloads
 policy = (
     Policy.builder("isolated-worker")
     .allow_tools("shell_worker")
-    .read_paths("./workspace")
-    .write_paths("./workspace/out")
+    .read_paths(str(workspace))
+    .write_paths(str(out_dir))
     .deny_network()
     .limits(cpu_seconds=10, memory_mb=512, max_processes=32)
     .build()
 )
 
-# 2. Execute arbitrary subprocess under OS kernel containment
+# 3. Execute subprocess under OS kernel containment (Containment Tier)
 # On Linux: Landlock filesystem allowlist + seccomp-bpf syscall filter
 # On Windows: AppContainer isolation + Job Object bounds
 # On macOS: Seatbelt sandbox-exec profile
+res_file = out_dir / "res.txt"
 result = sandbox.run(
-    ["bash", "-c", "rm -rf /var/data && echo 'done' > ./workspace/out/res.txt"],
+    ["bash", "-c", f"echo 'done' > '{res_file}'"],
     policy=policy,
     tool="shell_worker"
 )
 
-# 3. Check containment outcome
+# 4. Check containment outcome
 print(f"Contained: {result.contained}")
-print(f"Exit code: {result.returncode}")  # Non-zero on kernel trap
-if result.stderr:
-    print(f"Stderr: {result.stderr.strip()}")`;
+print(f"Exit code: {result.returncode}")
+if res_file.exists():
+    print(f"File created: {res_file.read_text().strip()}")`;
 
   const activeSnippet = activeTab === 'policy' ? policySnippet : containmentSnippet;
 
@@ -93,10 +111,10 @@ if result.stderr:
       </motion.div>
 
       {/* Code Editor with Tabs */}
-      <div className="code-window rounded-xl overflow-hidden shadow-2xl flex flex-col border border-white/10">
+      <div className="code-window rounded-xl overflow-hidden shadow-2xl flex flex-col border border-white/10 w-full max-w-full min-w-0">
         {/* Editor Tab Bar */}
         <div className="bg-surface-container-high px-4 py-2.5 border-b border-white/10 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={() => setActiveTab('policy')}
               className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-mono-code transition-all ${
@@ -141,8 +159,8 @@ if result.stderr:
         </div>
 
         {/* Code Content */}
-        <div className="p-6 font-mono-code text-xs sm:text-sm bg-[#13171A] overflow-x-auto leading-relaxed text-on-surface whitespace-pre">
-          <code>{activeSnippet}</code>
+        <div className="p-4 sm:p-6 font-mono-code text-xs sm:text-sm bg-[#13171A] overflow-x-auto leading-relaxed text-on-surface whitespace-pre w-full max-w-full min-w-0">
+          <code className="block min-w-0">{activeSnippet}</code>
         </div>
 
         {/* Footer Explanation Note */}

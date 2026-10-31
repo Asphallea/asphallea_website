@@ -29,7 +29,7 @@ export function IntegrationSection() {
             <span className="w-2.5 h-2.5 rounded-full bg-amber-400/80"></span>
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/80"></span>
             <span className="font-mono-eyebrow text-xs text-on-surface-variant ml-1 font-semibold">
-              agent_app.py
+              agent_app.py · Partial Integration Snippet
             </span>
           </div>
           <span className="font-mono-eyebrow text-xs text-on-surface-variant">
