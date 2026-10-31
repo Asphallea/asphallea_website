@@ -5,13 +5,13 @@ const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.15 }
+    transition: { staggerChildren: 0.12 }
   }
 };
 
 const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  hidden: { opacity: 0, y: 15 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4 } }
 };
 
 export function FeaturesSection() {
@@ -22,7 +22,7 @@ export function FeaturesSection() {
           ENGINEERED FOR PRODUCTION
         </div>
         <h2 className="font-headline-lg text-headline-lg text-on-background">
-          Why agent security is an OS problem.
+          Why agent security is an execution problem.
         </h2>
       </div>
 
@@ -33,7 +33,7 @@ export function FeaturesSection() {
         viewport={{ once: true, margin: "-100px" }}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 border border-white/10 rounded-xl overflow-hidden glass-panel w-full"
       >
-        <motion.div variants={item} className="p-6 flex flex-col gap-3 relative border-b lg:border-b-0 lg:border-r border-white/5">
+        <motion.div variants={item} className="p-6 flex flex-col gap-3 relative border-b lg:border-b-0 lg:border-r border-white/5 bg-[#14181C]">
           <div className="w-10 h-10 rounded-lg code-window flex items-center justify-center text-primary border border-primary/20">
             <Code2 className="w-5 h-5" />
           </div>
@@ -45,7 +45,7 @@ export function FeaturesSection() {
           </p>
         </motion.div>
 
-        <motion.div variants={item} className="p-6 flex flex-col gap-3 relative border-b lg:border-b-0 lg:border-r border-white/5">
+        <motion.div variants={item} className="p-6 flex flex-col gap-3 relative border-b lg:border-b-0 lg:border-r border-white/5 bg-[#14181C]">
           <div className="w-10 h-10 rounded-lg code-window flex items-center justify-center text-primary border border-primary/20">
             <Gavel className="w-5 h-5" />
           </div>
@@ -53,11 +53,11 @@ export function FeaturesSection() {
             Deterministic Engine
           </h3>
           <p className="font-mono-code text-mono-code text-on-surface-variant text-xs leading-relaxed">
-            No LLM-in-the-loop guessing intent. Invocations are evaluated deterministically with append-only JSONL audit logs and secret scrubbing.
+            No probabilistic model in the loop guessing intent. Tool calls are evaluated deterministically against policy with append-only JSONL audit logs.
           </p>
         </motion.div>
 
-        <motion.div variants={item} className="p-6 flex flex-col gap-3 relative border-b sm:border-b-0 sm:border-r border-white/5">
+        <motion.div variants={item} className="p-6 flex flex-col gap-3 relative border-b sm:border-b-0 sm:border-r border-white/5 bg-[#14181C]">
           <div className="w-10 h-10 rounded-lg code-window flex items-center justify-center text-[#74d4ea] border border-[#74d4ea]/20">
             <Cpu className="w-5 h-5" />
           </div>
@@ -65,19 +65,19 @@ export function FeaturesSection() {
             Kernel Containment
           </h3>
           <p className="font-mono-code text-mono-code text-on-surface-variant text-xs leading-relaxed">
-            OS-level process sandboxing via Landlock & seccomp-bpf on Linux, AppContainer & Job Objects on Windows, and Seatbelt on macOS.
+            OS-level process sandboxing via Landlock &amp; seccomp-bpf on Linux, AppContainer &amp; Job Objects on Windows, and Seatbelt on macOS.
           </p>
         </motion.div>
 
-        <motion.div variants={item} className="p-6 flex flex-col gap-3 relative">
+        <motion.div variants={item} className="p-6 flex flex-col gap-3 relative bg-[#14181C]">
           <div className="w-10 h-10 rounded-lg code-window flex items-center justify-center text-primary-fixed-dim border border-primary-fixed-dim/20">
             <ShieldCheck className="w-5 h-5" />
           </div>
           <h3 className="font-headline-md text-base text-on-background font-semibold">
-            SHA-256 Verified
+            SHA-256 Manifest
           </h3>
           <p className="font-mono-code text-mono-code text-on-surface-variant text-xs leading-relaxed">
-            Prebuilt wheels bundle code-signed core binaries verified against an internal SHA-256 manifest. Fails closed on any tampering.
+            Prebuilt wheels bundle native core binaries verified against an embedded SHA-256 manifest before execution, failing closed on mismatch.
           </p>
         </motion.div>
       </motion.div>

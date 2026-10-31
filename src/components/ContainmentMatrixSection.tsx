@@ -1,31 +1,31 @@
 import { motion } from 'motion/react';
-import { ShieldAlert, Layers, CheckCircle2, XCircle } from 'lucide-react';
+import { ShieldAlert, Layers, CheckCircle2 } from 'lucide-react';
 
 export function ContainmentMatrixSection() {
   const matrixData = [
     {
-      capability: 'Policy Tier (Allow/Deny, Rates, Spend Caps)',
+      capability: 'Policy Tier (Tool Allow/Deny, Rates, Spend Caps)',
       linux: true,
       windows: true,
       macos: true,
     },
     {
-      capability: 'JSONL Audit Trail & Secret Redaction',
+      capability: 'JSONL Audit Trail & Pattern Secret Redaction',
       linux: true,
       windows: true,
       macos: true,
     },
     {
       capability: 'OS Filesystem Allowlist',
-      linux: 'Landlock',
+      linux: 'Landlock (Kernel 5.13+)',
       windows: 'AppContainer',
-      macos: 'Seatbelt',
+      macos: 'Seatbelt (sandbox-exec)',
     },
     {
-      capability: 'OS Network Deny & Namespace Isolation',
-      linux: 'seccomp + netns',
+      capability: 'OS Subprocess Network Deny',
+      linux: 'seccomp-bpf + netns',
       windows: 'AppContainer',
-      macos: 'Seatbelt',
+      macos: 'Seatbelt profile',
     },
     {
       capability: 'Syscall Filtering',
@@ -43,134 +43,134 @@ export function ContainmentMatrixSection() {
       capability: 'Guaranteed Process Tree Termination',
       linux: 'PR_SET_PDEATHSIG',
       windows: 'Job Objects',
-      macos: 'Process Group',
+      macos: 'Process Group kill',
+    },
+    {
+      capability: 'Core Binary Hash Manifest Verification',
+      linux: 'SHA-256 (Wheels)',
+      windows: 'SHA-256 (Wheels)',
+      macos: 'SHA-256 (Universal2)',
     },
   ];
 
   return (
-    <section id="containment" className="flex flex-col gap-12 max-w-6xl mx-auto w-full scroll-mt-24">
-      {/* Section Header */}
+    <section id="containment" className="flex flex-col gap-10 max-w-6xl mx-auto w-full scroll-mt-24">
+      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: true, margin: '-100px' }}
         transition={{ duration: 0.5 }}
-        className="flex flex-col gap-4 items-center text-center max-w-3xl mx-auto"
+        className="flex flex-col gap-3 items-center text-center max-w-3xl mx-auto"
       >
         <div className="font-mono-eyebrow text-mono-eyebrow bronze-text tracking-widest uppercase flex items-center gap-2">
           <Layers className="w-4 h-4" />
-          HONEST OS PLATFORM SUPPORT
+          HONEST PLATFORM SUPPORT BOUNDARIES
         </div>
         <h2 className="font-headline-lg text-headline-lg text-on-background">
-          Two tiers. Kernel-level enforcement.
+          Two tiers. Kernel-enforced boundaries.
         </h2>
-        <p className="font-body-md text-body-md text-on-surface-variant">
-          Pure-ML competitors filter text. Asphallea enforces OS containment using platform-native security engines on Linux, Windows, and macOS. Release wheels bundle prebuilt, code-signed, and SHA-256 verified core binaries with zero Rust toolchain setup required.
+        <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          Asphallea pairs cross-platform policy evaluation with platform-native OS sandboxing. Coverage is real across Linux, Windows, and macOS, but operating systems provide different primitives. Asphallea reports exact host capabilities and fails closed by default if requested controls are unsupported.
         </p>
       </motion.div>
 
-      {/* Two Tiers Comparison Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* Two Tiers Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.5 }}
-          className="code-window rounded-xl p-6 border border-white/10 flex flex-col gap-4 relative overflow-hidden"
+          className="code-window rounded-xl p-6 border border-white/10 flex flex-col gap-3 bg-[#161B20]"
         >
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary font-bold text-lg">
+            <div className="w-9 h-9 rounded-lg bg-surface-container-high border border-white/10 flex items-center justify-center text-primary font-bold text-sm">
               01
             </div>
             <div>
-              <h3 className="font-headline-md text-lg text-on-background font-semibold">
+              <h3 className="font-headline-md text-base text-on-background font-semibold">
                 Policy Tier (Cross-Platform)
               </h3>
-              <p className="text-xs text-on-surface-variant">Runs identically on Linux, Windows, macOS</p>
+              <p className="text-[11px] text-on-surface-variant/80">Identical behavior on Linux, Windows, and macOS</p>
             </div>
           </div>
           <p className="text-xs text-on-surface-variant leading-relaxed">
-            Every tool call is intercepted, checked deterministically against declarative YAML or Python policies, allowed or denied before invocation, and written to an append-only JSONL audit log with secret scrubbing.
+            Every integrated tool call is intercepted, checked deterministically against declarative YAML or Python policies, allowed or denied before execution, and logged to an append-only JSONL audit trail with secret scrubbing.
           </p>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="code-window rounded-xl p-6 border border-white/10 flex flex-col gap-4 relative overflow-hidden"
+          className="code-window rounded-xl p-6 border border-white/10 flex flex-col gap-3 bg-[#161B20]"
         >
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-[#74d4ea] font-bold text-lg">
+            <div className="w-9 h-9 rounded-lg bg-surface-container-high border border-white/10 flex items-center justify-center text-[#74d4ea] font-bold text-sm">
               02
             </div>
             <div>
-              <h3 className="font-headline-md text-lg text-on-background font-semibold">
+              <h3 className="font-headline-md text-base text-on-background font-semibold">
                 Containment Tier (OS Kernel Engine)
               </h3>
-              <p className="text-xs text-on-surface-variant">High-blast-radius execution isolation</p>
+              <p className="text-[11px] text-on-surface-variant/80">Platform-native subprocess isolation</p>
             </div>
           </div>
           <p className="text-xs text-on-surface-variant leading-relaxed">
-            For tools that execute shell commands or code, Asphallea’s native core (<code className="text-[#74d4ea]">asphallea-run</code>) applies kernel sandboxing to itself before executing untrusted agent code, failing closed if primitives are missing.
+            For tools that execute shell commands or code, Asphallea’s native core (<code className="text-[#74d4ea]">asphallea-run</code>) applies kernel sandboxing before launching child processes, failing closed if primitives are unavailable on the host.
           </p>
         </motion.div>
       </div>
 
       {/* Capability Matrix Table */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="code-window rounded-xl overflow-hidden border border-white/10"
-      >
-        <div className="bg-surface-container-high px-6 py-4 border-b border-white/5 flex items-center justify-between">
-          <span className="font-mono-eyebrow text-mono-eyebrow text-on-background font-semibold">
+      <div className="code-window rounded-xl overflow-hidden border border-white/10 bg-[#14181C]">
+        <div className="bg-surface-container-high px-5 py-3 border-b border-white/10 flex flex-wrap items-center justify-between gap-2">
+          <span className="font-mono-eyebrow text-xs text-on-background font-semibold">
             Platform Capabilities Matrix
           </span>
-          <span className="text-xs font-mono-code text-primary flex items-center gap-1">
+          <span className="text-[11px] font-mono-code text-primary flex items-center gap-1.5">
             <ShieldAlert className="w-3.5 h-3.5" />
-            Fails Closed by Default
+            Fails closed when capabilities are missing
           </span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs font-mono-code border-collapse">
             <thead>
-              <tr className="border-b border-white/5 bg-white/[0.02]">
-                <th className="p-4 font-mono-eyebrow text-on-surface-variant uppercase">Security Capability</th>
-                <th className="p-4 font-mono-eyebrow text-on-surface-variant uppercase text-center">Linux 5.13+</th>
-                <th className="p-4 font-mono-eyebrow text-on-surface-variant uppercase text-center">Windows</th>
-                <th className="p-4 font-mono-eyebrow text-on-surface-variant uppercase text-center">macOS</th>
+              <tr className="border-b border-white/10 bg-white/[0.02]">
+                <th className="p-3.5 font-mono-eyebrow text-on-surface-variant uppercase text-[11px]">Security Capability</th>
+                <th className="p-3.5 font-mono-eyebrow text-on-surface-variant uppercase text-[11px] text-center">Linux 5.13+</th>
+                <th className="p-3.5 font-mono-eyebrow text-on-surface-variant uppercase text-[11px] text-center">Windows</th>
+                <th className="p-3.5 font-mono-eyebrow text-on-surface-variant uppercase text-[11px] text-center">macOS</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5 text-on-surface">
               {matrixData.map((row, idx) => (
                 <tr key={idx} className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-4 font-semibold text-on-background">{row.capability}</td>
-                  <td className="p-4 text-center">
+                  <td className="p-3.5 font-medium text-on-background">{row.capability}</td>
+                  <td className="p-3.5 text-center">
                     {typeof row.linux === 'boolean' ? (
                       <CheckCircle2 className="w-4 h-4 text-primary mx-auto" />
                     ) : (
                       <span className="bg-white/5 px-2 py-0.5 rounded text-primary">{row.linux}</span>
                     )}
                   </td>
-                  <td className="p-4 text-center">
+                  <td className="p-3.5 text-center">
                     {typeof row.windows === 'boolean' ? (
                       <CheckCircle2 className="w-4 h-4 text-primary mx-auto" />
                     ) : (
                       <span className="bg-white/5 px-2 py-0.5 rounded text-[#74d4ea]">{row.windows}</span>
                     )}
                   </td>
-                  <td className="p-4 text-center">
+                  <td className="p-3.5 text-center">
                     {typeof row.macos === 'boolean' ? (
                       <CheckCircle2 className="w-4 h-4 text-primary mx-auto" />
                     ) : row.macos === 'Planned' ? (
                       <span className="text-on-surface-variant/50">{row.macos}</span>
                     ) : (
-                      <span className="bg-white/5 px-2 py-0.5 rounded text-[#ffb4ab]">{row.macos}</span>
+                      <span className="bg-white/5 px-2 py-0.5 rounded text-[#ffb77b]">{row.macos}</span>
                     )}
                   </td>
                 </tr>
@@ -178,7 +178,7 @@ export function ContainmentMatrixSection() {
             </tbody>
           </table>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

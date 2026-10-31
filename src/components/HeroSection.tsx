@@ -1,8 +1,13 @@
-import { Copy, Check, Star } from 'lucide-react';
+import { Copy, Check, Star, ArrowRight, ShieldCheck, Terminal, Layers } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState } from 'react';
 
-export function HeroSection() {
+interface HeroSectionProps {
+  onOpenDemo: () => void;
+  onExploreOSS: () => void;
+}
+
+export function HeroSection({ onOpenDemo, onExploreOSS }: HeroSectionProps) {
   const [copied, setCopied] = useState(false);
   const installCmd = 'pip install asphallea';
 
@@ -13,166 +18,168 @@ export function HeroSection() {
   };
 
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center max-w-6xl mx-auto w-full">
-      {/* Left Column: Copy */}
+    <section id="product" className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center max-w-6xl mx-auto w-full pt-4">
+      {/* Left Column: Copy & Actions */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="lg:col-span-6 flex flex-col gap-6 items-center text-center lg:items-start lg:text-left"
       >
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
           <span className="font-mono-eyebrow text-mono-eyebrow bronze-text tracking-widest uppercase">
             RUNTIME SECURITY FOR AI AGENTS
           </span>
-          <span className="text-[11px] font-mono-code bg-white/5 border border-primary/20 text-primary px-2 py-0.5 rounded-full">
-            v0.1.0 on PyPI
+          <span className="text-[11px] font-mono-code bg-white/5 border border-primary/25 text-primary px-2 py-0.5 rounded-full">
+            v0.1.1 on PyPI
           </span>
         </div>
+
         <h1 className="font-headline-xl text-headline-xl text-on-background">
           A firewall for what your AI agents do.
         </h1>
-        <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
-          Asphallea sandboxes agent and MCP tool-calls at runtime and enforces
-          which actions are allowed by policy, not by watching text. It
-          secures what agents do, not what they say.
+
+        <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+          Asphallea enforces explicit least-privilege policies on integrated tool calls, with OS kernel containment for supported shell and code execution paths. It secures what agents do, not what they say.
         </p>
-        <div className="flex flex-col gap-2 w-full max-w-lg">
-          <div className="flex items-center justify-between w-full code-window rounded-DEFAULT px-4 py-3 input-focus-bronze transition-colors text-left overflow-hidden">
-            <code className="font-mono-code text-mono-code text-on-surface truncate mr-2" title={installCmd}>
+
+        {/* Dual Conversion Actions */}
+        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto pt-1">
+          <button
+            onClick={onOpenDemo}
+            className="px-6 py-3.5 rounded btn-primary font-mono-eyebrow text-xs uppercase tracking-wider font-bold transition-all hover:scale-95 flex items-center justify-center gap-2 shadow-sm"
+          >
+            <span>Book a technical demo</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+          <button
+            onClick={onExploreOSS}
+            className="px-6 py-3.5 rounded btn-ghost font-mono-eyebrow text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2"
+          >
+            <Terminal className="w-4 h-4 text-primary" />
+            <span>Try open-source runtime</span>
+          </button>
+        </div>
+
+        {/* Installation snippet with transparency */}
+        <div className="flex flex-col gap-2 w-full max-w-lg mt-2 text-left">
+          <div className="flex items-center justify-between w-full code-window rounded px-4 py-3 border border-white/10 input-focus-bronze transition-colors overflow-hidden">
+            <span className="text-primary font-mono-code font-bold mr-2 text-sm select-none">$</span>
+            <code className="font-mono-code text-mono-code text-on-surface truncate flex-1" title={installCmd}>
               {installCmd}
             </code>
             <button
               onClick={handleCopy}
-              className="text-on-surface-variant hover:text-primary transition-colors flex-shrink-0"
+              className="text-on-surface-variant hover:text-primary transition-colors flex-shrink-0 p-1 rounded"
               title="Copy install command"
+              aria-label="Copy install command"
             >
               {copied ? (
-                <Check className="w-5 h-5 text-primary" />
+                <Check className="w-4 h-4 text-primary" />
               ) : (
-                <Copy className="w-5 h-5" />
+                <Copy className="w-4 h-4" />
               )}
             </button>
           </div>
-          <span className="text-[11px] font-mono-code text-on-surface-variant/70 px-1">
-            Prebuilt wheels for Linux (glibc/musl), macOS (universal2), and Windows. No Rust toolchain required.
+          <span className="text-[11px] font-mono-code text-on-surface-variant/80 px-1 leading-normal">
+            Prebuilt wheels bundle hash-verified core binaries on Linux, macOS (Apple Silicon &amp; Intel), and Windows. No Rust toolchain required for consumers.
           </span>
-        </div>
-        <div className="flex flex-col sm:flex-row gap-4 mt-4 w-full sm:w-auto">
-          <a
-            className="px-6 py-3 rounded-DEFAULT btn-primary font-mono-eyebrow text-mono-eyebrow font-bold transition-all hover:scale-95 flex items-center justify-center gap-2"
-            href="https://github.com/Asphallea/Asphallea"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Star className="w-4 h-4 fill-current" />
-            Star on GitHub
-          </a>
-          <a
-            className="px-6 py-3 rounded-DEFAULT btn-ghost font-mono-eyebrow text-mono-eyebrow transition-all hover:bg-white/5 flex justify-center text-center"
-            href="#quickstart"
-          >
-            Read the Quickstart
-          </a>
         </div>
       </motion.div>
 
-      {/* Right Column: Code & Logs */}
+      {/* Right Column: Verified Policy & Execution Flow */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
+        transition={{ duration: 0.5, delay: 0.15 }}
         className="lg:col-span-6 flex flex-col gap-4 w-full"
       >
-        {/* Policy Editor */}
-        <div className="code-window rounded-lg overflow-hidden shadow-2xl flex flex-col">
-          <div className="bg-surface-container-high px-4 py-2 border-b border-white/5 flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-white/10"></span>
-            <span className="w-3 h-3 rounded-full bg-white/10"></span>
-            <span className="w-3 h-3 rounded-full bg-white/10"></span>
-            <span className="font-mono-eyebrow text-mono-eyebrow text-on-surface-variant ml-2">
-              policy.yml
+        {/* Verified Declarative Policy Window */}
+        <div className="code-window rounded-xl overflow-hidden shadow-2xl flex flex-col border border-white/10">
+          <div className="bg-surface-container-high px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-400/80"></span>
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-400/80"></span>
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/80"></span>
+              <span className="font-mono-eyebrow text-xs text-on-surface-variant ml-1 font-semibold">
+                policy.yaml (Real Asphallea Schema)
+              </span>
+            </div>
+            <span className="text-[11px] font-mono-code text-primary bg-primary/10 px-2 py-0.5 rounded border border-primary/20">
+              Deterministic Rules
             </span>
           </div>
-          <div className="p-4 font-mono-code text-mono-code text-on-surface whitespace-pre-wrap leading-relaxed overflow-x-auto">
-            <span className="text-tertiary">version</span>:{' '}
-            <span className="text-primary-fixed-dim">"1.0"</span>
+
+          <div className="p-4 font-mono-code text-xs text-on-surface whitespace-pre-wrap leading-relaxed overflow-x-auto bg-[#13171A]">
+            <span className="text-on-surface-variant/70"># Declarative least-privilege policy</span>
             <br />
-            <span className="text-tertiary">agent_name</span>:{' '}
-            <span className="text-primary-fixed-dim">"customer_support"</span>
-            <br />
-            <span className="text-tertiary">rules</span>:
-            <br />
-            {'  '}- <span className="text-tertiary">action</span>:{' '}
-            <span className="text-primary-fixed-dim">"mcp.database.read"</span>
-            <br />
-            {'    '}
-            <span className="text-tertiary">effect</span>:{' '}
-            <span className="text-[#a8edff]">allow</span>
+            <span className="text-tertiary">name</span>: <span className="text-[#ffdcc2]">"workspace-agent"</span>
             <br />
             <br />
-            {'  '}- <span className="text-tertiary">action</span>:{' '}
-            <span className="text-primary-fixed-dim">"mcp.filesystem.*"</span>
+            <span className="text-tertiary">tools</span>:
             <br />
-            {'    '}
-            <span className="text-tertiary">effect</span>:{' '}
-            <span className="text-[#ffb4ab]">deny</span>
+            {'  '}<span className="text-tertiary">allow</span>:
             <br />
-            {'    '}
-            <span className="text-tertiary">reason</span>:{' '}
-            <span className="text-primary-fixed-dim">
-              "Agents cannot modify local disk."
-            </span>
+            {'    '}- <span className="text-[#a8edff]">filesystem.read</span>
+            <br />
+            {'    '}- <span className="text-[#a8edff]">run_shell</span>
+            <br />
+            {'  '}<span className="text-tertiary">deny</span>:
+            <br />
+            {'    '}- <span className="text-[#ffb4ab]">filesystem.delete</span>
+            <br />
+            {'  '}<span className="text-tertiary">args</span>:
+            <br />
+            {'    '}<span className="text-[#a8edff]">filesystem.read</span>: {'{ '}<span className="text-tertiary">reads</span>: <span className="text-[#ffdcc2]">path</span>{' }'}
+            <br />
+            <br />
+            <span className="text-tertiary">filesystem</span>:
+            <br />
+            {'  '}<span className="text-tertiary">read</span>: [<span className="text-[#ffdcc2]">"./workspace"</span>]
+            <br />
+            {'  '}<span className="text-tertiary">write</span>: [<span className="text-[#ffdcc2]">"./workspace/out"</span>]
+            <br />
+            <br />
+            <span className="text-tertiary">network</span>:
+            <br />
+            {'  '}<span className="text-tertiary">default</span>: <span className="text-[#ffb4ab]">deny</span>
           </div>
         </div>
 
-        {/* Execution Log */}
-        <motion.div 
-          className="code-window rounded-lg p-4 font-mono-code text-mono-code text-on-surface flex flex-col gap-2 text-sm"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: 0.8, delayChildren: 0.5 } }
-          }}
-        >
-          <motion.div 
-            className="flex items-start gap-2"
-            variants={{
-              hidden: { opacity: 0, y: 5 },
-              visible: { opacity: 1, y: 0 }
-            }}
-          >
-            <span className="text-on-surface-variant">&gt;</span>
-            <span>
-              Agent requested:{' '}
-              <code className="bg-white/5 px-1 rounded">
-                filesystem.delete('/etc/passwd')
-              </code>
+        {/* Runtime Interception & Containment Log */}
+        <div className="code-window rounded-xl p-4 font-mono-code text-xs text-on-surface flex flex-col gap-2.5 border border-white/10 bg-[#161B20]">
+          <div className="flex items-center justify-between border-b border-white/10 pb-2">
+            <span className="text-[11px] font-mono-eyebrow text-on-surface-variant uppercase tracking-wider flex items-center gap-1.5">
+              <Layers className="w-3.5 h-3.5 text-primary" />
+              Runtime Decision Log
             </span>
-          </motion.div>
-          <motion.div 
-            className="flex items-start gap-2 text-[#ffb4ab]"
-            variants={{
-              hidden: { opacity: 0, x: -5 },
-              visible: { opacity: 1, x: 0 }
-            }}
-          >
-            <span className="font-bold">[DENY]</span>
-            <span>BLOCKED by policy: filesystem.delete</span>
-          </motion.div>
-          <motion.div 
-            className="flex items-start gap-2 bronze-text"
-            variants={{
-              hidden: { opacity: 0, y: 5 },
-              visible: { opacity: 1, y: 0 }
-            }}
-          >
-            <span className="font-bold">[WARN]</span>
-            <span>Execution halted. Sandbox intact.</span>
-          </motion.div>
-        </motion.div>
+            <span className="text-[10px] text-on-surface-variant/70">append-only jsonl</span>
+          </div>
+
+          {/* Event 1: Permitted inside workspace */}
+          <div className="flex items-start gap-2 text-xs">
+            <span className="text-emerald-400 font-bold shrink-0">[ALLOW]</span>
+            <span className="text-on-surface-variant">
+              tool <code className="text-white">filesystem.read("./workspace/spec.md")</code> permitted by path allowlist.
+            </span>
+          </div>
+
+          {/* Event 2: Denied outside workspace */}
+          <div className="flex items-start gap-2 text-xs">
+            <span className="text-[#ffb4ab] font-bold shrink-0">[DENY]</span>
+            <span className="text-on-surface-variant">
+              tool <code className="text-white">filesystem.read("/etc/passwd")</code> denied: outside read prefix.
+            </span>
+          </div>
+
+          {/* Event 3: Contained subprocess execution */}
+          <div className="flex items-start gap-2 text-xs">
+            <span className="text-[#74d4ea] font-bold shrink-0">[CONTAINED]</span>
+            <span className="text-on-surface-variant">
+              subprocess <code className="text-white">sandbox.run(["bash", "-c", "..."])</code> trapped by OS Landlock/Seatbelt.
+            </span>
+          </div>
+        </div>
       </motion.div>
     </section>
   );
