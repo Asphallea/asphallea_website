@@ -76,19 +76,25 @@ export function DemoRequestModal({ isOpen, onClose, initialUseCase = '' }: DemoR
       existingLeads.push(newLead);
       localStorage.setItem('asphallea_demo_requests', JSON.stringify(existingLeads));
 
-      // 2. Dispatch to webhook if configured
+      // 2. Dispatch to Formspree / Webhook API if configured
       const apiUrl = import.meta.env?.VITE_WAITLIST_API;
       if (apiUrl) {
         const response = await fetch(apiUrl, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
           body: JSON.stringify({
-            type: 'technical_demo_request',
-            ...formData,
+            name: formData.name,
+            email: formData.email,
+            company: formData.company,
+            useCase: formData.useCase,
+            context: formData.context,
           }),
         });
         if (!response.ok) {
-          throw new Error('Service temporarily unavailable. Please try again or reach out directly.');
+          throw new Error('Form service temporarily unavailable. Please try again or reach out directly.');
         }
       }
 

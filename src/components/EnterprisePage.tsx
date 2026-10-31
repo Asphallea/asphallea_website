@@ -49,13 +49,26 @@ export function EnterprisePage({ onOpenDemo }: EnterprisePageProps) {
       });
       localStorage.setItem('asphallea_demo_requests', JSON.stringify(existing));
 
+      // 2. Dispatch to Formspree / Webhook API if configured
       const apiUrl = import.meta.env?.VITE_WAITLIST_API;
       if (apiUrl) {
-        await fetch(apiUrl, {
+        const response = await fetch(apiUrl, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type: 'enterprise_evaluation_request', ...formData }),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            company: formData.company,
+            useCase: formData.useCase,
+            context: formData.context,
+          }),
         });
+        if (!response.ok) {
+          throw new Error('Form service temporarily unavailable. Please try again or reach out directly.');
+        }
       }
 
       setSuccess(true);
