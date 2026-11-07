@@ -2,7 +2,7 @@ import { Code2, Gavel, ShieldCheck, Cpu } from 'lucide-react';
 import { motion } from 'motion/react';
 
 const container = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 0.35 },
   show: {
     opacity: 1,
     transition: { staggerChildren: 0.12 }
@@ -10,7 +10,7 @@ const container = {
 };
 
 const item = {
-  hidden: { opacity: 0, y: 15 },
+  hidden: { opacity: 0.35, y: 15 },
   show: { opacity: 1, y: 0, transition: { duration: 0.4 } }
 };
 
@@ -30,7 +30,7 @@ export function FeaturesSection() {
         variants={container}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: true, margin: "0px 0px -40px 0px" }}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 border border-white/10 rounded-xl overflow-hidden glass-panel w-full"
       >
         <motion.div variants={item} className="p-6 flex flex-col gap-3 relative border-b lg:border-b-0 lg:border-r border-white/5 bg-[#14181C]">
