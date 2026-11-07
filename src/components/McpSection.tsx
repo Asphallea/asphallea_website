@@ -5,9 +5,9 @@ export function McpSection() {
   return (
     <section className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center max-w-6xl mx-auto w-full text-center lg:text-left">
       <motion.div
-        initial={{ opacity: 0, x: -20 }}
+        initial={{ opacity: 0.35, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
+        viewport={{ once: true, margin: '0px 0px -40px 0px' }}
         transition={{ duration: 0.5 }}
         className="lg:w-1/2 flex flex-col gap-5 items-center lg:items-start"
       >
@@ -26,9 +26,9 @@ export function McpSection() {
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, x: 20 }}
+        initial={{ opacity: 0.35, x: 20 }}
         whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
+        viewport={{ once: true, margin: '0px 0px -40px 0px' }}
         transition={{ duration: 0.5, delay: 0.15 }}
         className="lg:w-1/2 w-full"
       >
