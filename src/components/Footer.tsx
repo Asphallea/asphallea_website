@@ -44,11 +44,13 @@ export function Footer({ onNavigate, onOpenDemo }: FooterProps) {
           {/* Brand Info */}
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2.5">
-              <img
-                src={logoImg}
-                alt="Asphallea Logo"
-                className="w-6 h-6 rounded object-cover border border-white/15"
-              />
+              <span className="w-7 h-7 shrink-0 overflow-hidden rounded flex items-center justify-center">
+                <img
+                  src={logoImg}
+                  alt="Asphallea Logo"
+                  className="w-full h-full object-cover scale-[2.6] origin-[50%_35%] invert mix-blend-screen"
+                />
+              </span>
               <span className="font-mono-eyebrow text-sm text-on-background font-bold tracking-wider">
                 ASPHALLEA
               </span>
