@@ -57,15 +57,18 @@ export function Navbar({ activeView, onNavigate, onOpenDemo }: NavbarProps) {
           className="flex items-center gap-3 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
           aria-label="Asphallea Home"
         >
+          {/* Crop to the "A" mark and invert so it reads on the dark nav */}
+          <span className="w-9 h-9 shrink-0 overflow-hidden rounded-md flex items-center justify-center">
           <img
             src={logoImg}
             alt="Asphallea Logo"
-            className="w-8 h-8 rounded object-cover border border-white/15"
+            className="w-full h-full object-cover scale-[2.6] origin-[50%_35%] invert mix-blend-screen"
             onError={(e) => {
               (e.currentTarget as HTMLImageElement).src =
                 'https://lh3.googleusercontent.com/aida-public/AB6AXuD-7Tx0WsMNc2_ouhCUfT_QwSQcBPn488UJTJY0s-j-zCLT445BO7mo2jqZ4BD-IbF2-ehFONqexAW1UMFXWgkkvUl9_xBR3a3iVVEekUs-irkHgpl1-VpvR05otT24gfoee_KM4GzX5PrzD5IcuiMVsSPA8viv8XYoRHmU4CcxG2T0bzXNYeMUnj6owuWfok8I8Tfi1cQaNSQp3FI2GNgoUNXN-ykM8IkTUkAjNJrmTeOVqR4GFf-blXHW9i6IzJ9ssg';
             }}
           />
+          </span>
           <div className="flex flex-col">
             <span className="font-headline-md text-base sm:text-lg font-bold tracking-tight text-on-background">
               ASPHALLEA
