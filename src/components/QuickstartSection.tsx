@@ -1,6 +1,33 @@
 import { Copy, Check, Terminal, Shield, Lock, Layers, Cpu } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState } from 'react';
+import type React from 'react';
+
+const PY_KEYWORDS = new Set([
+  'from', 'import', 'def', 'return', 'with', 'as', 'try', 'except', 'if', 'else',
+  'for', 'in', 'not', 'and', 'or', 'None', 'True', 'False', 'class', 'raise',
+]);
+
+// Lightweight Python highlighter: comments, strings, decorators, keywords.
+function highlightPython(code: string) {
+  const tokenRe = /(#.*$)|(f?"(?:[^"\\]|\\.)*"|f?'(?:[^'\\]|\\.)*')|(@\w+)|(\b[A-Za-z_]\w*\b)/gm;
+  const out: React.ReactNode[] = [];
+  let last = 0;
+  let m: RegExpExecArray | null;
+  let i = 0;
+  while ((m = tokenRe.exec(code)) !== null) {
+    if (m.index > last) out.push(code.slice(last, m.index));
+    const [tok, comment, str, deco, word] = m;
+    if (comment) out.push(<span key={i++} className="text-on-surface-variant/60 italic">{tok}</span>);
+    else if (str) out.push(<span key={i++} className="text-[#a8edff]">{tok}</span>);
+    else if (deco) out.push(<span key={i++} className="text-[#e6c07b]">{tok}</span>);
+    else if (word && PY_KEYWORDS.has(word)) out.push(<span key={i++} className="text-[#ffb77b]">{tok}</span>);
+    else out.push(tok);
+    last = m.index + tok.length;
+  }
+  if (last < code.length) out.push(code.slice(last));
+  return out;
+}
 
 export function QuickstartSection() {
   const [activeTab, setActiveTab] = useState<'policy' | 'containment'>('policy');
@@ -36,8 +63,6 @@ content = read_data(str(sample_file))
 print("Allowed read:", content)
 
 # 5. Out-of-bounds target is denied before open() is ever invoked
-# Policy interception evaluates allowlists deterministically without needing
-# the target file to exist on the host filesystem.
 try:
     read_data(str(workspace.parent / "confidential_keys.env"))
 except PolicyViolation as err:
@@ -92,9 +117,9 @@ if res_file.exists():
     <section id="quickstart" className="flex flex-col gap-10 max-w-6xl mx-auto w-full scroll-mt-24">
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0.35, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
+        viewport={{ once: true, margin: '0px 0px -40px 0px' }}
         transition={{ duration: 0.5 }}
         className="flex flex-col gap-3 items-center text-center max-w-3xl mx-auto"
       >
@@ -160,7 +185,7 @@ if res_file.exists():
 
         {/* Code Content */}
         <div className="p-6 font-mono-code text-xs sm:text-sm bg-[#13171A] overflow-x-auto leading-relaxed text-on-surface whitespace-pre">
-          <code>{activeSnippet}</code>
+          <code>{highlightPython(activeSnippet)}</code>
         </div>
 
         {/* Footer Explanation Note */}
