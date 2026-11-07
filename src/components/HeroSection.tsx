@@ -87,7 +87,7 @@ export function HeroSection({ onOpenDemo, onExploreOSS }: HeroSectionProps) {
               )}
             </button>
           </div>
-          <span className="text-[11px] font-mono-code text-on-surface-variant/80 px-1 leading-normal">
+          <span className="text-xs font-mono-code text-on-surface-variant px-1 leading-normal">
             Prebuilt wheels bundle hash-verified core binaries on Linux, macOS (Apple Silicon &amp; Intel), and Windows. No Rust toolchain required for consumers.
           </span>
         </div>

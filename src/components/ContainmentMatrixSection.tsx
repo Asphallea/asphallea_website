@@ -57,9 +57,9 @@ export function ContainmentMatrixSection() {
     <section id="containment" className="flex flex-col gap-10 max-w-6xl mx-auto w-full scroll-mt-24">
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0.35, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
+        viewport={{ once: true, margin: '0px 0px -40px 0px' }}
         transition={{ duration: 0.5 }}
         className="flex flex-col gap-3 items-center text-center max-w-3xl mx-auto"
       >
@@ -78,9 +78,9 @@ export function ContainmentMatrixSection() {
       {/* Two Tiers Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0.35, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, margin: '0px 0px -40px 0px' }}
           transition={{ duration: 0.5 }}
           className="code-window rounded-xl p-6 border border-white/10 flex flex-col gap-3 bg-[#161B20]"
         >
@@ -101,9 +101,9 @@ export function ContainmentMatrixSection() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0.35, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, margin: '0px 0px -40px 0px' }}
           transition={{ duration: 0.5, delay: 0.1 }}
           className="code-window rounded-xl p-6 border border-white/10 flex flex-col gap-3 bg-[#161B20]"
         >

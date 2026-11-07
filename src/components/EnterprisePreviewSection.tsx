@@ -19,9 +19,9 @@ export function EnterprisePreviewSection({ onOpenDemo, onViewEnterprisePage }: E
     <section id="enterprise" className="flex flex-col gap-12 max-w-6xl mx-auto w-full scroll-mt-24">
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0.35, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
+        viewport={{ once: true, margin: '0px 0px -40px 0px' }}
         transition={{ duration: 0.5 }}
         className="flex flex-col gap-3 items-center text-center max-w-3xl mx-auto"
       >

@@ -41,9 +41,9 @@ export function ProblemBand() {
     <section className="flex flex-col gap-10 max-w-6xl mx-auto w-full scroll-mt-24">
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0.35, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
+        viewport={{ once: true, margin: '0px 0px -40px 0px' }}
         transition={{ duration: 0.5 }}
         className="flex flex-col gap-3 text-center max-w-3xl mx-auto"
       >
@@ -65,9 +65,9 @@ export function ProblemBand() {
           return (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0.35, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
+              viewport={{ once: true, margin: '0px 0px -40px 0px' }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               className="code-window rounded-xl p-6 border border-white/10 flex flex-col gap-4 bg-[#161B20] hover:border-primary/40 transition-colors"
             >
@@ -100,9 +100,9 @@ export function ProblemBand() {
 
       {/* Honest Boundary Callout */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0.35, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
+        viewport={{ once: true, margin: '0px 0px -40px 0px' }}
         transition={{ duration: 0.5, delay: 0.3 }}
         className="glass-panel p-5 rounded-xl border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-on-surface-variant leading-relaxed"
       >
