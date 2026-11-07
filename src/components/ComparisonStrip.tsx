@@ -5,9 +5,9 @@ export function ComparisonStrip() {
     <div className="flex flex-col gap-6 max-w-6xl mx-auto w-full">
       {/* Comparison Strip */}
       <motion.section
-        initial={{ opacity: 0, scale: 0.98 }}
+        initial={{ opacity: 0.35, scale: 0.98 }}
         whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: true, margin: "0px 0px -40px 0px" }}
         transition={{ duration: 0.4 }}
         className="flex flex-col rounded-xl overflow-hidden border border-white/10 font-mono-code text-xs sm:text-sm w-full bg-[#14181C]"
       >
